@@ -1,0 +1,35 @@
+#! /bin/sh
+
+# Directs container network through VPN connection.
+# This is configured to use ProtonVPN. Edit credentials in build/vpn-router/entrypoint.sh
+# If you want to use another provider, edit the DNS below and edit ovpn filed folder above
+ 
+CONT_NAME="$1-disp-$(date +'%s')" # Unique name for container
+VPN_NAME="vpn-$1-disp-$(date +'%s')" # Container name for VPN net container
+
+# Run container to establish Proton VPN Connection
+docker run -d --name "$VPN_NAME" --cap-add NET_ADMIN --privileged --dns "10.8.8.1" --dns "1.1.1.1" vpn-router
+
+#Allow connections to X11
+xhost +
+
+# Run container (Additional argument can be assed for customisation = $2 --net=host... )
+docker run \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    --device /dev/snd \
+    -e DISPLAY=unix$DISPLAY \
+    -v "/run/user/1000/pulse:/run/pulse:ro" \
+    -e PULSE_SERVER="/run/pulse/native" \
+    --user=$1 \
+    --name "$CONT_NAME" \
+    --net="container:$VPN_NAME" \
+    $2 $1
+
+# Cleanup
+docker stop "$CONT_NAME"
+docker stop "$VPN_NAME"
+docker rm "$CONT_NAME" --force
+docker rm "$VPN_NAME" --force
+
+# Re-enable access control to X11
+xhost -
