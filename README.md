@@ -2,7 +2,6 @@
 
 This repository contains dockerized applications and services for use with the desktop. An optional VPN or Tor router for each app and support for NVIDIA runtime in Ubuntu (see [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) for more details). The install scripts will also add .desktop files and launcher scripts to facilitate the integration for an easy execution with localized, isolated and minimal footprint on the system.
 
-[TOC]
 
 #### **Prerequisites**
 
