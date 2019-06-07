@@ -24,11 +24,7 @@ RUN buildDeps=' \
 	&& curl -sSL https://www.virtualbox.org/download/oracle_vbox_2016.asc | apt-key add - \
 	&& echo "deb http://download.virtualbox.org/virtualbox/debian stretch contrib" >> /etc/apt/sources.list.d/virtualbox.list \
 	&& apt update && apt install -y \
-	virtualbox \
-	virtualbox-qt \
-	virtualbox-guest-dkms \
-	virtualbox-guest-utils \
-	virtualbox-guest-additions-iso \
+	virtualbox-5.2 \
 	--no-install-recommends \
 	&& apt purge -y --auto-remove $buildDeps
 

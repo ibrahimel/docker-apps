@@ -43,3 +43,5 @@ for package in $list; do
 		stop_spinner $? && echo 'Done'
 	fi
 done
+
+rm -rf ./vpn-router/ovpn/*

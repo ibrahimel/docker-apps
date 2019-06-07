@@ -28,8 +28,8 @@ docker cp virtualbox:/usr/share/icons/hicolor/64x64/apps/virtualbox.png ./ &&
 # Remove container
 docker rm --force virtualbox &&
 
-#sudo /usr/lib/virtualbox/vboxdrv.sh setup &&
-#sudo rm -rf /usr/share/virtualbox /usr/lib/virtualbox &&
+sudo /usr/lib/virtualbox/vboxdrv.sh setup &&
+sudo rm -rf /usr/share/virtualbox /usr/lib/virtualbox &&
 
 # Fix desktop file
 sed -i "s@Exec.*@Exec=$HOME/.docker-apps/bin/$APP virtualbox '$RUNTIME--privileged'@" virtualbox.desktop &&
