@@ -1,8 +1,12 @@
 #!/bin/sh
 set -e -u -o pipefail
 
-VPN_USERNAME=""
-VPN_PASSWORD=""
+iptables-restore < /iptables.rules
+
+sleep 1
+
+VPN_USERNAME="fakeuser"
+VPN_PASSWORD="fakepass"
 
 REGION=$(find ./ -name *.ovpn | shuf -n 1)
 

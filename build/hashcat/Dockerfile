@@ -3,8 +3,8 @@
 FROM nvidia/opencl
 LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
 
-RUN apt-get update \
-    && apt-get install -y hashcat
+RUN apt update \
+    && apt install -y hashcat
 
 ENV HOME /home/hashcat
 RUN useradd --create-home --home-dir $HOME hashcat \

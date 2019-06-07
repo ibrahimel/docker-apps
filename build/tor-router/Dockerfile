@@ -3,7 +3,7 @@
 FROM debian:sid-slim
 LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
 
-#RUN apt-get update && apt-get install -y \
+#RUN apt update && apt install -y \
 #	openvpn \
 #	--no-install-recommends \
 #	&& rm -rf /var/lib/apt/lists/*

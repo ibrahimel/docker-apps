@@ -1,0 +1,23 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Sublime Text
+GenericName=Text Editor
+Comment=Sophisticated text editor for code, markup and prose
+Exec=/home/ibrahimel/.docker-apps/bin/docker-apps-vpn sublime '-v /home/ibrahimel/workspace:/home/sublime/workspace'
+Terminal=false
+MimeType=text/plain;
+Icon=/home/ibrahimel/.docker-apps/build/sublime/sublime.png
+Categories=TextEditor;Development;
+StartupNotify=true
+Actions=Window;Document;
+
+[Desktop Action Window]
+Name=New Window
+Exec=/home/ibrahimel/.docker-apps/bin/docker-apps-vpn sublime '-v /home/ibrahimel/workspace:/home/sublime/workspace'
+OnlyShowIn=Unity;
+
+[Desktop Action Document]
+Name=New File
+Exec=/home/ibrahimel/.docker-apps/bin/docker-apps-vpn sublime '-v /home/ibrahimel/workspace:/home/sublime/workspace'
+OnlyShowIn=Unity;

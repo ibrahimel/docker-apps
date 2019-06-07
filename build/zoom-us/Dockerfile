@@ -1,53 +1,59 @@
 # Zoom-us in a container
 
-FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu18.04
+FROM ubuntu:18.04
 LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
 
-# Dependencies for the client .deb
-RUN apt-get update && apt-get install -y \
+# Tell debconf to run in non-interactive mode
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt update && apt install -y \
+	apt-transport-https \
 	ca-certificates \
 	curl \
-	gdebi \
-	desktop-file-utils \
-	ibus \
-	ibus-gtk \
-	lib32z1 \
-	libx11-6 \
-	libasound2-dev \
-	libegl1-mesa \
-	libxcb-shm0 \
-	libglib2.0-0 \
+	dirmngr \
+	gnupg \
+	git \
+	tar \
+	wget \
+	libcanberra-gtk-module \
+	libcanberra-gtk3-module \
+	libx11-xcb1 \
+	libxtst6 \
+	libnotify4 \
+	libgl1-mesa-dri \
 	libgl1-mesa-glx \
-	libxrender1 \
-	libxcomposite1 \
-	libxslt1.1 \
-	libgstreamer1.0-dev \
-	libgstreamer-plugins-base1.0-dev \
-	libxi6 \
-	libsm6 \
-	libfontconfig1 \
+	libatomic1 \
+	libc++1 \
+	libappindicator1 \
+	xdg-utils \
 	libpulse0 \
 	apulse \
-	libsqlite3-0 \
-	libxcb-shape0 \
-	libxcb-xfixes0 \
-	libxcb-randr0 \
-	libxcb-image0 \
-	libxcb-keysyms1 \
-	libxcb-xtest0 \
+	locales \
+	--no-install-recommends \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
+	&& locale-gen en_US.UTF-8 \
+	&& localedef -i en_US -f UTF-8 en_US.UTF-8 \
+	&& dpkg-reconfigure locales
+
+ENV LANG="en_US.UTF-8"
+ENV LC_ALL="en_US.UTF-8"
+ENV LANGUAGE="en_US.UTF-8"
+
+RUN apt update && apt install -y \
+	libsm6 \
 	libnss3 \
 	libxss1 \
-	libxtst6 \
-	sudo \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
 ARG ZOOM_URL=https://zoom.us/client/latest/zoom_amd64.deb
 
 #install zoom
-RUN curl -sSL $ZOOM_URL -o /tmp/zoom_setup.deb \
-	&& dpkg -i /tmp/zoom_setup.deb \
-	&& apt-get -f install \
+RUN curl -L $ZOOM_URL -o /tmp/zoom_setup.deb \
+	&& apt update && apt install -y /tmp/zoom_setup.deb \
+	&& apt -f install \
 	&& rm /tmp/zoom_setup.deb \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -62,7 +68,4 @@ WORKDIR $HOME
 
 USER zoom-us
 
-CMD [ "/usr/bin/zoom" ]
-
-#WORKDIR /usr/bin
-#CMD [ "./zoom" ]
+ENTRYPOINT [ "/usr/bin/zoom" ]

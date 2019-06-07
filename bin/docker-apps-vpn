@@ -8,9 +8,14 @@ USER=$1 # User in container (Same as app name)
 DOCKER_HOMES="$HOME/.docker-apps/homes" # Path in host for container home folder persistence
 CONTAINER_HOME="$DOCKER_HOMES/$1" # Home for current container in host
 DOCKER_USER_HOME="/home/$USER" # Home for current container inside container
-COMMON_FOLDER="$HOME/Downloads" # Shared folder between host and container 
+COMMON_FOLDER="$HOME/Downloads/docker-apps/$1" # Shared folder between host and container 
 CONT_NAME="$1-$(date +'%s')" # Unique name for container
 VPN_NAME="vpn-$1-$(date +'%s')" # Container name for VPN net container
+
+# Make shared for container if not existent
+if [ ! -d $COMMON_FOLDER ]; then
+    mkdir $COMMON_FOLDER
+fi
 
 # Make home for container if not existent
 if [ ! -d $CONTAINER_HOME ]; then
@@ -21,16 +26,23 @@ fi
 docker run -d --name "$VPN_NAME" --cap-add NET_ADMIN --privileged --dns "10.8.8.1" --dns "1.1.1.1" vpn-router
 
 #Allow connections to X11
-xhost +
+xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f /tmp/.docker.xauth nmerge -
 
 # Run container (Additional argument can be assed for customisation = $2 --net=host... )
 docker run \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+    -v /tmp/.docker.xauth:/tmp/.docker.xauth:rw \
+    -v /var/run/dbus:/var/run/dbus:ro \
+    -v /var/run/user/$(id -u):/var/run/user/$(id -u):ro \
+    -v "/run/user/$(id -u)/pulse:/run/pulse:ro" \
     -v "$CONTAINER_HOME":"$DOCKER_USER_HOME" \
     -v "$COMMON_FOLDER":"$DOCKER_USER_HOME/Downloads" \
-    --device /dev/snd \
     -e DISPLAY=unix$DISPLAY \
-    -v "/run/user/1000/pulse:/run/pulse:ro" \
+    -e XAUTHORITY=/tmp/.docker.xauth \
+    -e SHELL=$SHELL \
+    -e COLORTERM=$COLORTERM \
+    -e LS_COLORS=$LS_COLORS \
+    -e DBUS_SESSION_BUS_ADDRESS= \
     -e PULSE_SERVER="/run/pulse/native" \
     --user=$1 \
     --name "$CONT_NAME" \
@@ -42,6 +54,3 @@ docker stop "$CONT_NAME"
 docker stop "$VPN_NAME"
 docker rm "$CONT_NAME" --force
 docker rm "$VPN_NAME" --force
-
-# Re-enable access control to X11
-xhost -

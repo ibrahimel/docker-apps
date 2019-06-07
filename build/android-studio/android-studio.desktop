@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Android Studio
 Comment=Android IDE.
-Exec=/home/ibrahimel/.docker-apps/bin/docker-apps-vpn android-studio '-v /home/ibrahimel/workspace:/home/android-studio/workspace'
+Exec=/home/ibrahimel/.docker-apps/bin/docker-apps android-studio '--runtime=nvidia -v /home/ibrahimel/workspace:/home/android-studio/workspace -v /home/ibrahimel/.ssh:/home/android-studio/.ssh:ro -v /home/ibrahimel/.gnupg:/home/android-studio/.gnupg:ro -v /home/ibrahimel/.gitconfig:/home/android-studio/.gitconfig:ro'
 Icon=/home/ibrahimel/.docker-apps/build/android-studio/android-studio.png
 Type=Application
 StartupNotify=true

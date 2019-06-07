@@ -1,13 +1,14 @@
 # Tor-browser in a container
 
-FROM debian:sid-slim
+FROM ubuntu:18.04
 LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
 	ca-certificates \
 	curl \
 	dirmngr \
 	gnupg \
+	wget \
 	libasound2 \
 	libpulse0 \
 	apulse \
@@ -32,7 +33,7 @@ ENV TOR_VERSION 9.0a1
 
 # download tor and check signature
 RUN cd /tmp \
-	&& curl -sSOL "https://www.torproject.org/dist/torbrowser/${TOR_VERSION}/tor-browser-linux64-${TOR_VERSION}_en-US.tar.xz" \
+	&& wget "https://www.torproject.org/dist/torbrowser/${TOR_VERSION}/tor-browser-linux64-${TOR_VERSION}_en-US.tar.xz" \
 	&& tar -vxJ --strip-components 1 -C /usr/local/bin -f tor-browser-linux64-${TOR_VERSION}_en-US.tar.xz \
 	&& rm -rf tor-browser* \
 	&& chown -R tor-browser:tor-browser /usr/local/bin

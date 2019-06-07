@@ -4,6 +4,6 @@ Name=Portainer
 GenericName=Portainer
 Comment=Container Management
 Categories=Developement;
-Exec=/home/ibrahimel/.docker-apps/bin/docker-apps portainer '--user root --net=none -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data'
+Exec=/home/ibrahimel/.docker-apps/bin/docker-apps portainer '--runtime=nvidia --net=none --user root -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data'
 Icon=/home/ibrahimel/.docker-apps/build/portainer/portainer.png
 StartupWMClass=Portainer

@@ -1,11 +1,11 @@
-# Nvidia base container
+# Kali linux full container
 
 FROM nvidia/opencl
 LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
 	apt-transport-https \
 	ca-certificates \
 	gnupg \
@@ -21,8 +21,8 @@ RUN echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" \
 	&& echo "deb-src http://http.kali.org/kali kali-rolling main contrib non-free" \
 	>> /etc/apt/sources.list.d/kali.list
 
-RUN apt-get update \
-	&& apt-get install -y kali-linux-full \
+RUN apt update \
+	&& apt install -y kali-linux-full \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 

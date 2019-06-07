@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Netflix
+GenericName=Netflix
+Comment=Container Management
+Categories=Developement;
+Exec=/home/ibrahimel/.docker-apps/bin/docker-apps netflix --runtime=nvidia 
+Icon=/home/ibrahimel/.docker-apps/build/netflix/netflix.png
+StartupWMClass=Netflix

@@ -1,13 +1,13 @@
 # Tensorflow in a container
 
-FROM tensorflow/tensorflow:latest-gpu-py3-jupyter
+FROM tensorflow/tensorflow:latest-py3-jupyter
 LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN python3 -m pip install keras
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
 	npm \
 	nodejs\
 	git \
@@ -45,7 +45,7 @@ RUN /tmp/install.sh
 
 RUN chown -R tensorflow:tensorflow /opt/jupyter-notebook-linux-x64
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
 	gxmessage \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
@@ -57,5 +57,5 @@ WORKDIR $HOME
 
 USER tensorflow
 
-COPY entrypoint.sh /usr/bin/start-container
-ENTRYPOINT [ "start-container" ]
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+ENTRYPOINT [ "entrypoint.sh" ]

@@ -1,0 +1,15 @@
+{
+  "name": "Netflix",
+  "version": "1.0.0",
+  "description": "Netflix in Electron supporting widevine",
+  "main": "main.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node_modules/electron/dist/electron ../../../"
+  },
+  "repository": "https://github.com/ibrahimel/docker-apps",
+  "author": "ibrahimel",
+  "devDependencies": {
+    "electron": "https://github.com/castlabs/electron-releases#v6.0.0-wvvmp-beta.6"
+  }
+}

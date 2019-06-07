@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Winds
+Comment=Winds is a beautiful open-source RSS Reader and Podcast application provided by GetStream.io.
+Exec=/home/ibrahimel/.docker-apps/bin/docker-apps winds --runtime=nvidia 
+Terminal=false
+Type=Application
+Icon=/home/ibrahimel/.docker-apps/build/winds/winds.png
+StartupWMClass=Winds
+X-AppImage-Version=3.1.11
+Categories=Network;Feed;
+X-AppImage-BuildId=1J0Q6av9PgFUkwtjWqxpFkmImfr

@@ -1,4 +1,4 @@
 #!/bin/sh
 
 #Build Container
-docker build --pull -t vpn-router . 
+docker build --pull -t vpn-router . && echo 'Done'

@@ -11,14 +11,21 @@ VPN_NAME="vpn-$1-disp-$(date +'%s')" # Container name for VPN net container
 docker run -d --name "$VPN_NAME" --cap-add NET_ADMIN --privileged --dns "10.8.8.1" --dns "1.1.1.1" vpn-router
 
 #Allow connections to X11
-xhost +
+xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f /tmp/.docker.xauth nmerge -
 
 # Run container (Additional argument can be assed for customisation = $2 --net=host... )
 docker run \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    --device /dev/snd \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+    -v /tmp/.docker.xauth:/tmp/.docker.xauth:rw \
+    -v /var/run/dbus:/var/run/dbus:ro \
+    -v /var/run/user/$(id -u)/bus:/var/run/user/$(id -u):ro \
+    -v "/run/user/$(id -u)/pulse:/run/pulse:ro" \
     -e DISPLAY=unix$DISPLAY \
-    -v "/run/user/1000/pulse:/run/pulse:ro" \
+    -e XAUTHORITY=/tmp/.docker.xauth \
+    -e SHELL=$SHELL \
+    -e COLORTERM=$COLORTERM \
+    -e LS_COLORS=$LS_COLORS \
+    -e DBUS_SESSION_BUS_ADDRESS \
     -e PULSE_SERVER="/run/pulse/native" \
     --user=$1 \
     --name "$CONT_NAME" \
@@ -30,6 +37,3 @@ docker stop "$CONT_NAME"
 docker stop "$VPN_NAME"
 docker rm "$CONT_NAME" --force
 docker rm "$VPN_NAME" --force
-
-# Re-enable access control to X11
-xhost -

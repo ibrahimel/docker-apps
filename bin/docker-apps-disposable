@@ -4,14 +4,21 @@ USER=$1 # User in container (Same as app name)
 CONT_NAME="$1-disp-$(date +'%s')" # Unique name for container
 
 #Allow connections to X11
-xhost +
+xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f /tmp/.docker.xauth nmerge -
 
 # Run container (Additional argument can be assed for customisation = $2 --net=host... )
 docker run \
     -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
-    --device /dev/snd \
+    -v /tmp/.docker.xauth:/tmp/.docker.xauth:rw \
+    -v /var/run/dbus:/var/run/dbus:ro \
+    -v /var/run/user/$(id -u):/var/run/user/$(id -u):ro \
+    -v "/run/user/$(id -u)/pulse:/run/pulse:ro" \
     -e DISPLAY=unix$DISPLAY \
-    -v "/run/user/1000/pulse:/run/pulse:ro" \
+    -e XAUTHORITY=/tmp/.docker.xauth \
+    -e SHELL=$SHELL \
+    -e COLORTERM=$COLORTERM \
+    -e LS_COLORS=$LS_COLORS \
+    -e DBUS_SESSION_BUS_ADDRESS \
     -e PULSE_SERVER="/run/pulse/native" \
     --user=$1 \
     --name "$CONT_NAME" \
@@ -20,6 +27,3 @@ docker run \
 # Cleanup
 docker stop "$CONT_NAME"
 docker rm "$CONT_NAME" --force
-
-# Re-enable access control to X11
-xhost -
