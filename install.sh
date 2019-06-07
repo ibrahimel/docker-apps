@@ -50,6 +50,11 @@ if [ ! -d ~/.docker-apps/homes ]; then
 	mkdir ~/.docker-apps/homes
 fi
 
+# Check homes directory
+if [ ! -d ~/.local/share/applications ]; then
+	mkdir ~/.local/share/applications
+fi
+
 # Check shared folder directory
 if [ ! -d ~/Downloads/docker-apps ]; then
 	mkdir ~/Downloads/docker-apps
