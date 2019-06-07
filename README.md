@@ -35,6 +35,8 @@ The install script accepts options and take app names as arguments:
 
 Log output for the build scripts is in `build/build.log` and and you can check live the build process from a terminal: `tail -f ~/.docker-apps/build/build.log`.
 
+Desktop files will be installed in `~/.local/share/applications`
+
 <u>**Update usage**:</u> `./install.sh [--vpn] [--nvidia] [--all] app1 app2 app3`
 
 Same options and arguments as the install script. This will pull updated images for the apps and re-install packages to their latest version. It will only act on already installed images.
