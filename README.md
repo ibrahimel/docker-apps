@@ -1,9 +1,9 @@
-## **Docker-apps**
+# **Docker-apps**
 
 This repository contains dockerized applications and services for use with the desktop. An optional VPN or Tor router for each app and support for NVIDIA runtime in Ubuntu (see [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) for more details). The install scripts will also add .desktop files and launcher scripts to facilitate the integration for an easy execution with localized, isolated and minimal footprint on the system.
 
 
-#### **Prerequisites**
+## **Prerequisites**
 
 The file `prereqs-nvidia.sh` will install `docker-ce` in Ubuntu 18.04+ and if it detects and NVIDIA driver it will also install `nvidia-docker` runtime.
 
@@ -13,7 +13,7 @@ To use the VPN router with apps you need `.ovpn` files from your provider using 
 
 
 
-#### **Configuration**
+## **Configuration**
 
 To install the scripts execute the following from your home folder:
 
@@ -55,7 +55,7 @@ The uninstall script takes apps as arguments or the `--all` options can be speci
 
 
 
-#### **Structure and folders**
+## **Structure and folders**
 
 **<u>Bin folder:</u>**
 
@@ -95,7 +95,7 @@ Some additional files may be present depending on the app. (`.deb` files or `ipt
 
 
 
-#### **Additional details**
+## **Additional details**
 
 To use the `--vpn` option you must edit `build/vpn-router/entrypoint.sh` with your VPN credentials and put your `ovpn` files in the `build/vpn-router/ovpn` folder. Also edit `bin/docker-apps-vpn` with your provider DNS and fallback DNS (currently set to `1.1.1.1` ).
 
@@ -121,14 +121,14 @@ Try not to install applications that are already installed on your system as XDG
 
 
 
-#### **How to contribute**
+## **How to contribute**
 
 - To report a bug or suggest additions don't hesitate to create an issue.
 - To add new images please fork the project, add the images by copying one of the existing ones and follow same architecture to make in installable by the scripts and create a pull request.
 
 
 
-#### **Credits and related work**
+## **Credits and related work**
 
 - Jessie Frazelle [dockerfiles](https://github.com/jessfraz/dockerfiles) repository
 - [x11docker](https://github.com/mviereck/x11docker) by mviereck
