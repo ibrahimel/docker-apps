@@ -8,12 +8,7 @@ if [ "$1" = "--vpn" ] || [ "$2" = "--vpn" ]; then
 	APP="docker-apps-vpn"
 fi
 
-if [ "$1" = "--nvidia" ] || [ "$2" = "--nvidia" ]; then
-	RUNTIME="--runtime=nvidia "
-    docker build --pull -t virtualbox -f nvidia.Dockerfile . && echo 'Done'
-else
-    docker build --pull -t virtualbox . && echo 'Done'
-fi  
+docker build --pull -t virtualbox . && echo 'Done'
 
 #Run in background for file copy
 docker run --rm -it -d --entrypoint=bash --name virtualbox virtualbox &&

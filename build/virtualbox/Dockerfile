@@ -1,14 +1,14 @@
 # Virtualbox in a container
 
 #FROM debian:stretch-slim
-FROM ubuntu:18.04
+FROM debian:stretch-slim
 LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt update && apt install -y \
 	libcurl3 \
-	libvpx5 \
+	libvpx4 \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
