@@ -5,9 +5,9 @@ This repository contains dockerized applications and services for use with the d
 
 ## **Prerequisites**
 
-The file `prereqs-nvidia.sh` will install `docker-ce` in Ubuntu 18.04+ and if it detects and NVIDIA driver it will also install `nvidia-docker` runtime.
+The file `prereqs-nvidia.sh` will install `docker-ce` in Ubuntu 18.04+ and if it detects an NVIDIA driver it will also install `nvidia-docker` runtime.
 
-If your dot not intend to use the nvidia runtime just make sure docker is installed and your current user is part of the docker group (these apps will not work if you have to use sudo for docker and are not intended to be run as root)
+If you do not intend to use the nvidia runtime just make sure docker is installed and your current user is part of the docker group (these apps will not work if you have to use sudo for docker and are not intended to be run as root)
 
 To use the VPN router with apps you need `.ovpn` files from your provider using the UDP protocol ports 80/443/5060/1194. If your configuration differ please update `entrypoint.sh` and `iptables.rules` in `build/vpn-router`.
 
