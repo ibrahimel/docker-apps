@@ -1,2 +1,2 @@
 fix*.sh
-build/*.log
+./build/*.log
