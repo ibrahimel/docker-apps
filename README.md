@@ -43,7 +43,7 @@ Same options and arguments as the install script. This will pull updated images 
 
 <u>**Uninstall usage**:</u> `./uninstall [--all] app1 app2 app3`
 
-The uninstall script takes apps as arguments or the `--all` options can be specified to delete all installed apps. You will be prompted whether to keep persistent container data or not.
+The uninstall script takes apps as arguments or the `--all` option can be specified to delete all installed apps. You will be prompted whether to keep persistent container data or not.
 
 <u>*Examples:*</u>
 
@@ -116,7 +116,7 @@ Also:
 
 - Portainer, Netflix and Tensorflow Jupyter are wrapped by Electron NodeJs to make them available as GUI Apps
 - Thunderbird ProtonMail: Protonmail needs to be configured after first run from an attached terminal using `docker exec -it name_of_container protonmail-bridge --cli`
-- Dev Apps (Atom, Sublime, VS Code etc.) will share the user's `.ssh .gnupg .gitconfig workspace` folders from home to enable signing commits in git and pull / push from repo using ssh and edit projects in ~/workspace. This default behavior can be edit in the app's `build.sh` file.
+- Dev Apps (Atom, Sublime, VS Code etc.) will share the user's `.ssh .gnupg .gitconfig workspace` folders from home to enable signing commits in git and pull / push from repo using ssh and edit projects in ~/workspace. This default behavior can be edited in the app's `build.sh` file.
 - All Dockerfiles share the same base more than necessary to run GUI apps and most of them use `ubuntu:18.04` base-image or `nvidia/opengl:ubuntu-18.04` for nvidia runtime. This will speed up bulk installs as most layers will already be cached.
 
 Try not to install applications that are already installed on your system as XDG gets confused and may launch any of the two randomly. Also Virtualbox cannot be installed on-top of an existing bare-metal install.
@@ -126,7 +126,7 @@ Try not to install applications that are already installed on your system as XDG
 ## **How to contribute**
 
 - To report a bug or suggest additions don't hesitate to create an issue.
-- To add new images please fork the project, add the images by copying one of the existing ones and follow same architecture to make in installable by the scripts and create a pull request.
+- To add new images please fork the project, add the images by copying one of the existing ones and follow same architecture to make it installable by the scripts and create a pull request.
 
 
 
