@@ -33,7 +33,7 @@ The install script accepts options and take app names as arguments:
 
 `--nvidia` This will configure all desktop shortcuts to use the NVIDIA Docker runtime (provided it is installed before-hand).
 
-Log output for the build scripts is in `build/build.log` and and you can check live the build process from a terminal: `tail -f ~/.docker-apps/build/build.log`.
+Log output for the build scripts is in `build/build.log` and you can check live the build process from a terminal: `tail -f ~/.docker-apps/build/build.log`.
 
 Desktop files will be installed in `~/.local/share/applications`
 
