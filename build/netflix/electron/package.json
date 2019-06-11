@@ -10,6 +10,6 @@
   "repository": "https://github.com/ibrahimel/docker-apps",
   "author": "ibrahimel",
   "devDependencies": {
-    "electron": "https://github.com/castlabs/electron-releases#v6.0.0-wvvmp-beta.6"
+    "electron": "https://github.com/castlabs/electron-releases"
   }
 }

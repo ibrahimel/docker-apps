@@ -64,6 +64,7 @@ RUN apt update && apt install -y \
 	libqt5quickwidgets5 \
 	libpulse-mainloop-glib0 \
 	libsecret-1-0 \
+	pass \
 	ttf-dejavu \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*

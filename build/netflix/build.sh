@@ -12,7 +12,7 @@ else
 fi 
 
 # Fix desktop file
-sed -i "s@Exec.*@Exec=$HOME/.docker-apps/bin/$APP netflix $RUNTIME@" netflix.desktop &&
+sed -i "s@Exec.*@Exec=$HOME/.docker-apps/bin/$APP netflix '$RUNTIME--shm-size=2g'@" netflix.desktop &&
 sed -i 's@TryExec.*@@' netflix.desktop &&
 sed -i "s@Icon.*@Icon=$HOME/.docker-apps/build/netflix/netflix.png@" netflix.desktop &&
 chown -R $USER:$USER ./ &&
