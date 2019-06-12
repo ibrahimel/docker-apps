@@ -1,791 +1,706 @@
-Sending build context to Docker daemon  38.08MB
-Step 1/20 : FROM ubuntu:18.04
+Sending build context to Docker daemon  112.6kB
+Step 1/19 : FROM ubuntu:18.04
 18.04: Pulling from library/ubuntu
 Digest: sha256:f08638ec7ddc90065187e7eabdfac3c96e5ff0f6b2f1762cf31a4f49b53000a5
 Status: Image is up to date for ubuntu:18.04
  ---> 7698f282e524
-Step 2/20 : LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
+Step 2/19 : LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
  ---> Using cache
  ---> dac8788d7d94
-Step 3/20 : ENV DEBIAN_FRONTEND noninteractive
+Step 3/19 : ENV DEBIAN_FRONTEND noninteractive
  ---> Using cache
  ---> b4d48f4fc61c
-Step 4/20 : RUN apt update && apt install -y 	apt-transport-https 	ca-certificates 	curl 	dirmngr 	gnupg 	git 	tar 	wget 	libcanberra-gtk-module 	libcanberra-gtk3-module 	libx11-xcb1 	libxtst6 	libnotify4 	libgl1-mesa-dri 	libgl1-mesa-glx 	libatomic1 	libc++1 	libappindicator1 	xdg-utils 	libpulse0 	apulse 	locales 	--no-install-recommends 	&& rm -rf /var/lib/apt/lists/*
+Step 4/19 : RUN apt update && apt install -y 	apt-transport-https 	ca-certificates 	curl 	dirmngr 	gnupg 	git 	tar 	wget 	libcanberra-gtk-module 	libcanberra-gtk3-module 	libx11-xcb1 	libxtst6 	libnotify4 	libgl1-mesa-dri 	libgl1-mesa-glx 	libatomic1 	libc++1 	libappindicator1 	xdg-utils 	libpulse0 	apulse 	locales 	--no-install-recommends 	&& rm -rf /var/lib/apt/lists/*
  ---> Using cache
  ---> d41f82225827
-Step 5/20 : RUN sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen 	&& locale-gen en_US.UTF-8 	&& localedef -i en_US -f UTF-8 en_US.UTF-8 	&& dpkg-reconfigure locales
+Step 5/19 : RUN sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen 	&& locale-gen en_US.UTF-8 	&& localedef -i en_US -f UTF-8 en_US.UTF-8 	&& dpkg-reconfigure locales
  ---> Using cache
  ---> 3a85d8c8f492
-Step 6/20 : ENV LANG="en_US.UTF-8"
+Step 6/19 : ENV LANG="en_US.UTF-8"
  ---> Using cache
  ---> bf0f4afdd4c5
-Step 7/20 : ENV LC_ALL="en_US.UTF-8"
+Step 7/19 : ENV LC_ALL="en_US.UTF-8"
  ---> Using cache
  ---> 2a71fbb411f9
-Step 8/20 : ENV LANGUAGE="en_US.UTF-8"
+Step 8/19 : ENV LANGUAGE="en_US.UTF-8"
  ---> Using cache
  ---> 74d786b6f254
-Step 9/20 : RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0AB215679C571D1C8325275B9BDB3D89CE49EC21 	&& echo "deb http://ppa.launchpad.net/mozillateam/thunderbird-next/ubuntu bionic main" >> /etc/apt/sources.list.d/firefox.list 	&& apt update && apt install -y 	thunderbird 	fonts-noto 	fonts-noto-cjk 	fonts-noto-color-emoji 	--no-install-recommends 	&& rm -rf /var/lib/apt/lists/*
- ---> Running in b3404a3eb0b0
-[91mWarning: apt-key output should not be parsed (stdout is not a terminal)
-[0mExecuting: /tmp/apt-key-gpghome.iqEUXyCojJ/gpg.1.sh --keyserver keyserver.ubuntu.com --recv-keys 0AB215679C571D1C8325275B9BDB3D89CE49EC21
-[91mgpg: key 9BDB3D89CE49EC21: 16 signatures not checked due to missing keys
-[0m[91mgpg: key 9BDB3D89CE49EC21: public key "Launchpad PPA for Mozilla Team" imported
-[0m[91mgpg: Total number processed: 1
-gpg:               imported: 1
-[0m[91m
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+Step 9/19 : RUN apt update && apt install -y 	npm 	nodejs	libxss1 	libnss3 	--no-install-recommends 	&& rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> b1b00aa79ef0
+Step 10/19 : COPY protonmail.png /usr/share/icons/
+ ---> e24f9bfb2103
+Step 11/19 : COPY ./electron /opt/protonmail
+ ---> c9966176f801
+Step 12/19 : ENV HOME /home/protonmail
+ ---> Running in f2ff8fb9f9a7
+Removing intermediate container f2ff8fb9f9a7
+ ---> d617325849b4
+Step 13/19 : RUN useradd --create-home --home-dir $HOME protonmail 	&& usermod -a -G audio,video protonmail 	&& chown -R protonmail:protonmail /opt/protonmail 	&& chown -R protonmail:protonmail $HOME
+ ---> Running in 27ef9287895d
+Removing intermediate container 27ef9287895d
+ ---> eb7ae2c3c4f6
+Step 14/19 : RUN su protonmail -c "cd /opt/protonmail && npm install && cd node_modules/electron && npm install"
+ ---> Running in 1f79d489e069
 
-[0mGet:1 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]
-Get:2 http://ppa.launchpad.net/mozillateam/thunderbird-next/ubuntu bionic InRelease [20.8 kB]
-Get:3 http://archive.ubuntu.com/ubuntu bionic InRelease [242 kB]
-Get:4 http://archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]
-Get:5 http://ppa.launchpad.net/mozillateam/thunderbird-next/ubuntu bionic/main amd64 Packages [13.5 kB]
-Get:6 http://security.ubuntu.com/ubuntu bionic-security/restricted amd64 Packages [5,436 B]
-Get:7 http://archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]
-Get:8 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [324 kB]
-Get:9 http://security.ubuntu.com/ubuntu bionic-security/multiverse amd64 Packages [4,168 B]
-Get:10 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages [490 kB]
-Get:11 http://archive.ubuntu.com/ubuntu bionic/main amd64 Packages [1,344 kB]
-Get:12 http://archive.ubuntu.com/ubuntu bionic/universe amd64 Packages [11.3 MB]
-Get:13 http://archive.ubuntu.com/ubuntu bionic/multiverse amd64 Packages [186 kB]
-Get:14 http://archive.ubuntu.com/ubuntu bionic/restricted amd64 Packages [13.5 kB]
-Get:15 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages [1,211 kB]
-Get:16 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages [834 kB]
-Get:17 http://archive.ubuntu.com/ubuntu bionic-updates/multiverse amd64 Packages [7,236 B]
-Get:18 http://archive.ubuntu.com/ubuntu bionic-updates/restricted amd64 Packages [10.8 kB]
-Get:19 http://archive.ubuntu.com/ubuntu bionic-backports/main amd64 Packages [2,496 B]
-Get:20 http://archive.ubuntu.com/ubuntu bionic-backports/universe amd64 Packages [3,902 B]
-Fetched 16.3 MB in 2s (6,672 kB/s)
-Reading package lists...
-Building dependency tree...
-Reading state information...
-15 packages can be upgraded. Run 'apt list --upgradable' to see them.
-[91m
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+> electron@6.0.0-wvvmp-beta.7 postinstall /opt/protonmail/node_modules/electron
+> node install.js
 
-[0mReading package lists...
-Building dependency tree...
-Reading state information...
-The following additional packages will be installed:
-  fonts-noto-hinted libdbus-glib-1-2 libice6 libsm6 libstartup-notification0
-  libxcb-util1 libxt6
-Suggested packages:
-  fonts-noto-cjk-extra thunderbird-gnome-support ttf-lyx
-Recommended packages:
-  fonts-noto-unhinted fonts-noto-mono myspell-en-us | hunspell-dictionary
-  | myspell-dictionary libdbusmenu-gtk3-4
-The following NEW packages will be installed:
-  fonts-noto fonts-noto-cjk fonts-noto-color-emoji fonts-noto-hinted
-  libdbus-glib-1-2 libice6 libsm6 libstartup-notification0 libxcb-util1 libxt6
-  thunderbird
-0 upgraded, 11 newly installed, 0 to remove and 15 not upgraded.
-Need to get 110 MB of archives.
-After this operation, 290 MB of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu bionic/main amd64 libice6 amd64 2:1.0.9-2 [40.2 kB]
-Get:2 http://archive.ubuntu.com/ubuntu bionic/main amd64 libsm6 amd64 2:1.2.2-1 [15.8 kB]
-Get:3 http://archive.ubuntu.com/ubuntu bionic/universe amd64 fonts-noto-hinted all 20171026-2 [6,653 kB]
-Get:4 http://archive.ubuntu.com/ubuntu bionic/universe amd64 fonts-noto all 20171026-2 [4,136 B]
-Get:5 http://archive.ubuntu.com/ubuntu bionic/main amd64 fonts-noto-cjk all 1:20170601+repack1-2 [54.3 MB]
-Get:6 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 fonts-noto-color-emoji all 0~20180810-0ubuntu1 [7,102 kB]
-Get:7 http://archive.ubuntu.com/ubuntu bionic/main amd64 libdbus-glib-1-2 amd64 0.110-2 [58.3 kB]
-Get:8 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxcb-util1 amd64 0.4.0-0ubuntu3 [11.2 kB]
-Get:9 http://archive.ubuntu.com/ubuntu bionic/main amd64 libstartup-notification0 amd64 0.12-5 [18.9 kB]
-Get:10 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxt6 amd64 1:1.1.5-1 [160 kB]
-Get:11 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 thunderbird amd64 1:60.7.0+build1-0ubuntu0.18.04.1 [41.3 MB]
-[91mdebconf: delaying package configuration, since apt-utils is not installed
-[0mFetched 110 MB in 9s (11.7 MB/s)
-Selecting previously unselected package libice6:amd64.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 23157 files and directories currently installed.)
-Preparing to unpack .../00-libice6_2%3a1.0.9-2_amd64.deb ...
-Unpacking libice6:amd64 (2:1.0.9-2) ...
-Selecting previously unselected package libsm6:amd64.
-Preparing to unpack .../01-libsm6_2%3a1.2.2-1_amd64.deb ...
-Unpacking libsm6:amd64 (2:1.2.2-1) ...
-Selecting previously unselected package fonts-noto-hinted.
-Preparing to unpack .../02-fonts-noto-hinted_20171026-2_all.deb ...
-Unpacking fonts-noto-hinted (20171026-2) ...
-Selecting previously unselected package fonts-noto.
-Preparing to unpack .../03-fonts-noto_20171026-2_all.deb ...
-Unpacking fonts-noto (20171026-2) ...
-Selecting previously unselected package fonts-noto-cjk.
-Preparing to unpack .../04-fonts-noto-cjk_1%3a20170601+repack1-2_all.deb ...
-Unpacking fonts-noto-cjk (1:20170601+repack1-2) ...
-Selecting previously unselected package fonts-noto-color-emoji.
-Preparing to unpack .../05-fonts-noto-color-emoji_0~20180810-0ubuntu1_all.deb ...
-Unpacking fonts-noto-color-emoji (0~20180810-0ubuntu1) ...
-Selecting previously unselected package libdbus-glib-1-2:amd64.
-Preparing to unpack .../06-libdbus-glib-1-2_0.110-2_amd64.deb ...
-Unpacking libdbus-glib-1-2:amd64 (0.110-2) ...
-Selecting previously unselected package libxcb-util1:amd64.
-Preparing to unpack .../07-libxcb-util1_0.4.0-0ubuntu3_amd64.deb ...
-Unpacking libxcb-util1:amd64 (0.4.0-0ubuntu3) ...
-Selecting previously unselected package libstartup-notification0:amd64.
-Preparing to unpack .../08-libstartup-notification0_0.12-5_amd64.deb ...
-Unpacking libstartup-notification0:amd64 (0.12-5) ...
-Selecting previously unselected package libxt6:amd64.
-Preparing to unpack .../09-libxt6_1%3a1.1.5-1_amd64.deb ...
-Unpacking libxt6:amd64 (1:1.1.5-1) ...
-Selecting previously unselected package thunderbird.
-Preparing to unpack .../10-thunderbird_1%3a60.7.0+build1-0ubuntu0.18.04.1_amd64.deb ...
-Unpacking thunderbird (1:60.7.0+build1-0ubuntu0.18.04.1) ...
-Setting up libdbus-glib-1-2:amd64 (0.110-2) ...
-Setting up fonts-noto-color-emoji (0~20180810-0ubuntu1) ...
-Setting up libxcb-util1:amd64 (0.4.0-0ubuntu3) ...
-Setting up fonts-noto-cjk (1:20170601+repack1-2) ...
-Setting up libstartup-notification0:amd64 (0.12-5) ...
-Processing triggers for libc-bin (2.27-3ubuntu1) ...
-Setting up fonts-noto-hinted (20171026-2) ...
-Setting up libice6:amd64 (2:1.0.9-2) ...
-Processing triggers for fontconfig (2.12.6-0ubuntu2) ...
-Setting up fonts-noto (20171026-2) ...
-Setting up libsm6:amd64 (2:1.2.2-1) ...
-Setting up libxt6:amd64 (1:1.1.5-1) ...
-Setting up thunderbird (1:60.7.0+build1-0ubuntu0.18.04.1) ...
-Processing triggers for libc-bin (2.27-3ubuntu1) ...
-Removing intermediate container b3404a3eb0b0
- ---> 50afe75948be
-Step 10/20 : ENV HOME /home/thunderbird-proton
- ---> Running in a3b2b7f276b6
-Removing intermediate container a3b2b7f276b6
- ---> 0b57c59ae539
-Step 11/20 : RUN useradd --create-home --home-dir $HOME thunderbird-proton 	&& chown -R thunderbird-proton:thunderbird-proton $HOME
- ---> Running in 8f7232dbbfed
-Removing intermediate container 8f7232dbbfed
- ---> 7fb9f8a1649e
-Step 12/20 : COPY proton.deb /tmp/
- ---> 596db96b1bc5
-Step 13/20 : RUN apt update && apt install -y 	qt5-default 	libqt5designer5 	libqt5multimediawidgets5 	libqt5quickwidgets5 	libpulse-mainloop-glib0 	libsecret-1-0 	pass 	ttf-dejavu 	--no-install-recommends 	&& rm -rf /var/lib/apt/lists/*
- ---> Running in bef7e51ace14
-[91m
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+ProtonMail@1.0.0 /opt/protonmail
+└─┬ electron@6.0.0-wvvmp-beta.7  (git+https://github.com/castlabs/electron-releases.git#5b4716467259d17c67606cb22ad240c92d583871)
+  ├── @types/node@8.10.49 
+  ├─┬ electron-download@4.1.1 
+  │ ├─┬ debug@3.2.6 
+  │ │ └── ms@2.1.2 
+  │ ├── env-paths@1.0.0 
+  │ ├─┬ fs-extra@4.0.3 
+  │ │ ├── graceful-fs@4.1.15 
+  │ │ ├── jsonfile@4.0.0 
+  │ │ └── universalify@0.1.2 
+  │ ├── minimist@1.2.0 
+  │ ├─┬ nugget@2.0.1 
+  │ │ ├─┬ debug@2.6.9 
+  │ │ │ └── ms@2.0.0 
+  │ │ ├─┬ pretty-bytes@1.0.4 
+  │ │ │ ├── get-stdin@4.0.1 
+  │ │ │ └─┬ meow@3.7.0 
+  │ │ │   ├─┬ camelcase-keys@2.1.0 
+  │ │ │   │ └── camelcase@2.1.1 
+  │ │ │   ├── decamelize@1.2.0 
+  │ │ │   ├─┬ loud-rejection@1.6.0 
+  │ │ │   │ ├─┬ currently-unhandled@0.4.1 
+  │ │ │   │ │ └── array-find-index@1.0.2 
+  │ │ │   │ └── signal-exit@3.0.2 
+  │ │ │   ├── map-obj@1.0.1 
+  │ │ │   ├─┬ normalize-package-data@2.5.0 
+  │ │ │   │ ├── hosted-git-info@2.7.1 
+  │ │ │   │ ├─┬ resolve@1.11.0 
+  │ │ │   │ │ └── path-parse@1.0.6 
+  │ │ │   │ └─┬ validate-npm-package-license@3.0.4 
+  │ │ │   │   ├─┬ spdx-correct@3.1.0 
+  │ │ │   │   │ └── spdx-license-ids@3.0.4 
+  │ │ │   │   └─┬ spdx-expression-parse@3.0.0 
+  │ │ │   │     └── spdx-exceptions@2.2.0 
+  │ │ │   ├── object-assign@4.1.1 
+  │ │ │   ├─┬ read-pkg-up@1.0.1 
+  │ │ │   │ ├─┬ find-up@1.1.2 
+  │ │ │   │ │ ├── path-exists@2.1.0 
+  │ │ │   │ │ └─┬ pinkie-promise@2.0.1 
+  │ │ │   │ │   └── pinkie@2.0.4 
+  │ │ │   │ └─┬ read-pkg@1.1.0 
+  │ │ │   │   ├─┬ load-json-file@1.1.0 
+  │ │ │   │   │ ├─┬ parse-json@2.2.0 
+  │ │ │   │   │ │ └─┬ error-ex@1.3.2 
+  │ │ │   │   │ │   └── is-arrayish@0.2.1 
+  │ │ │   │   │ ├── pify@2.3.0 
+  │ │ │   │   │ └─┬ strip-bom@2.0.0 
+  │ │ │   │   │   └── is-utf8@0.2.1 
+  │ │ │   │   └── path-type@1.1.0 
+  │ │ │   ├─┬ redent@1.0.0 
+  │ │ │   │ ├─┬ indent-string@2.1.0 
+  │ │ │   │ │ └─┬ repeating@2.0.1 
+  │ │ │   │ │   └── is-finite@1.0.2 
+  │ │ │   │ └── strip-indent@1.0.1 
+  │ │ │   └── trim-newlines@1.0.0 
+  │ │ ├─┬ progress-stream@1.2.0 
+  │ │ │ ├── speedometer@0.1.4 
+  │ │ │ └─┬ through2@0.2.3 
+  │ │ │   ├─┬ readable-stream@1.1.14 
+  │ │ │   │ ├── isarray@0.0.1 
+  │ │ │   │ └── string_decoder@0.10.31 
+  │ │ │   └─┬ xtend@2.1.2 
+  │ │ │     └── object-keys@0.4.0 
+  │ │ ├─┬ request@2.88.0 
+  │ │ │ ├── aws-sign2@0.7.0 
+  │ │ │ ├── aws4@1.8.0 
+  │ │ │ ├── caseless@0.12.0 
+  │ │ │ ├─┬ combined-stream@1.0.8 
+  │ │ │ │ └── delayed-stream@1.0.0 
+  │ │ │ ├── extend@3.0.2 
+  │ │ │ ├── forever-agent@0.6.1 
+  │ │ │ ├─┬ form-data@2.3.3 
+  │ │ │ │ └── asynckit@0.4.0 
+  │ │ │ ├─┬ har-validator@5.1.3 
+  │ │ │ │ ├─┬ ajv@6.10.0 
+  │ │ │ │ │ ├── fast-deep-equal@2.0.1 
+  │ │ │ │ │ ├── fast-json-stable-stringify@2.0.0 
+  │ │ │ │ │ ├── json-schema-traverse@0.4.1 
+  │ │ │ │ │ └─┬ uri-js@4.2.2 
+  │ │ │ │ │   └── punycode@2.1.1 
+  │ │ │ │ └── har-schema@2.0.0 
+  │ │ │ ├─┬ http-signature@1.2.0 
+  │ │ │ │ ├── assert-plus@1.0.0 
+  │ │ │ │ ├─┬ jsprim@1.4.1 
+  │ │ │ │ │ ├── extsprintf@1.3.0 
+  │ │ │ │ │ ├── json-schema@0.2.3 
+  │ │ │ │ │ └── verror@1.10.0 
+  │ │ │ │ └─┬ sshpk@1.16.1 
+  │ │ │ │   ├── asn1@0.2.4 
+  │ │ │ │   ├── bcrypt-pbkdf@1.0.2 
+  │ │ │ │   ├── dashdash@1.14.1 
+  │ │ │ │   ├── ecc-jsbn@0.1.2 
+  │ │ │ │   ├── getpass@0.1.7 
+  │ │ │ │   ├── jsbn@0.1.1 
+  │ │ │ │   ├── safer-buffer@2.1.2 
+  │ │ │ │   └── tweetnacl@0.14.5 
+  │ │ │ ├── is-typedarray@1.0.0 
+  │ │ │ ├── isstream@0.1.2 
+  │ │ │ ├── json-stringify-safe@5.0.1 
+  │ │ │ ├─┬ mime-types@2.1.24 
+  │ │ │ │ └── mime-db@1.40.0 
+  │ │ │ ├── oauth-sign@0.9.0 
+  │ │ │ ├── performance-now@2.1.0 
+  │ │ │ ├── qs@6.5.2 
+  │ │ │ ├── safe-buffer@5.1.2 
+  │ │ │ ├─┬ tough-cookie@2.4.3 
+  │ │ │ │ ├── psl@1.1.32 
+  │ │ │ │ └── punycode@1.4.1 
+  │ │ │ ├── tunnel-agent@0.6.0 
+  │ │ │ └── uuid@3.3.2 
+  │ │ ├─┬ single-line-log@1.1.2 
+  │ │ │ └─┬ string-width@1.0.2 
+  │ │ │   ├── code-point-at@1.1.0 
+  │ │ │   ├─┬ is-fullwidth-code-point@1.0.0 
+  │ │ │   │ └── number-is-nan@1.0.1 
+  │ │ │   └─┬ strip-ansi@3.0.1 
+  │ │ │     └── ansi-regex@2.1.1 
+  │ │ └── throttleit@0.0.2 
+  │ ├── path-exists@3.0.0 
+  │ ├─┬ rc@1.2.8 
+  │ │ ├── deep-extend@0.6.0 
+  │ │ ├── ini@1.3.5 
+  │ │ └── strip-json-comments@2.0.1 
+  │ ├── semver@5.7.0 
+  │ └─┬ sumchecker@2.0.2 
+  │   └─┬ debug@2.6.9 
+  │     └── ms@2.0.0 
+  └─┬ extract-zip@1.6.7 
+    ├─┬ concat-stream@1.6.2 
+    │ ├── buffer-from@1.1.1 
+    │ ├── inherits@2.0.3 
+    │ ├─┬ readable-stream@2.3.6 
+    │ │ ├── core-util-is@1.0.2 
+    │ │ ├── isarray@1.0.0 
+    │ │ ├── process-nextick-args@2.0.0 
+    │ │ ├── string_decoder@1.1.1 
+    │ │ └── util-deprecate@1.0.2 
+    │ └── typedarray@0.0.6 
+    ├─┬ debug@2.6.9 
+    │ └── ms@2.0.0 
+    ├─┬ mkdirp@0.5.1 
+    │ └── minimist@0.0.8 
+    └─┬ yauzl@2.4.1 
+      └─┬ fd-slicer@1.0.1 
+        └── pend@1.2.0 
 
-[0mGet:1 http://ppa.launchpad.net/mozillateam/thunderbird-next/ubuntu bionic InRelease [20.8 kB]
-Get:2 http://ppa.launchpad.net/mozillateam/thunderbird-next/ubuntu bionic/main amd64 Packages [13.5 kB]
-Get:3 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]
-Get:4 http://archive.ubuntu.com/ubuntu bionic InRelease [242 kB]
-Get:5 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages [490 kB]
-Get:6 http://archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]
-Get:7 http://archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]
-Get:8 http://archive.ubuntu.com/ubuntu bionic/multiverse amd64 Packages [186 kB]
-Get:9 http://archive.ubuntu.com/ubuntu bionic/restricted amd64 Packages [13.5 kB]
-Get:10 http://archive.ubuntu.com/ubuntu bionic/universe amd64 Packages [11.3 MB]
-Get:11 http://security.ubuntu.com/ubuntu bionic-security/restricted amd64 Packages [5,436 B]
-Get:12 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [324 kB]
-Get:13 http://security.ubuntu.com/ubuntu bionic-security/multiverse amd64 Packages [4,168 B]
-Get:14 http://archive.ubuntu.com/ubuntu bionic/main amd64 Packages [1,344 kB]
-Get:15 http://archive.ubuntu.com/ubuntu bionic-updates/restricted amd64 Packages [10.8 kB]
-Get:16 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages [834 kB]
-Get:17 http://archive.ubuntu.com/ubuntu bionic-updates/multiverse amd64 Packages [7,236 B]
-Get:18 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages [1,211 kB]
-Get:19 http://archive.ubuntu.com/ubuntu bionic-backports/main amd64 Packages [2,496 B]
-Get:20 http://archive.ubuntu.com/ubuntu bionic-backports/universe amd64 Packages [3,902 B]
-Fetched 16.3 MB in 3s (5,001 kB/s)
-Reading package lists...
-Building dependency tree...
-Reading state information...
-15 packages can be upgraded. Run 'apt list --upgradable' to see them.
-[91m
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+[91mnpm[0m[91m WARN[0m[91m [0m[91mdeprecated standard-format@1.6.10: standard-format is deprecated in favor of a built-in autofixer in 'standard'. Usage: standard --fix
+[0m[91mnpm WARN[0m[91m deprecated circular-json@0.3.3: CircularJSON is in maintenance only, flatted is its successor.
+[0m[91mnpm WARN deprecated minimatch@2.0.10: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
+[0m[91mnpm WARN deprecated core-js@1.2.7: core-js@<2.6.8 is no longer maintained. Please, upgrade to core-js@3 or at least to actual version of core-js@2.
+[0m
+> core-js@2.6.9 postinstall /opt/protonmail/node_modules/electron/node_modules/babel-runtime/node_modules/core-js
+> node scripts/postinstall || echo "ignore"
 
-[0mReading package lists...
-Building dependency tree...
-Reading state information...
-The following additional packages will be installed:
-  fonts-dejavu fonts-dejavu-extra libdouble-conversion1 libdrm-dev
-  libegl-mesa0 libegl1 libegl1-mesa-dev libevdev2 libgbm1 libgl1-mesa-dev
-  libgles1 libgles2 libgles2-mesa-dev libglu1-mesa libglu1-mesa-dev
-  libglvnd-core-dev libglvnd-dev libgudev-1.0-0 libinput-bin libinput10
-  libmtdev1 libopengl0 libpthread-stubs0-dev libqt5concurrent5 libqt5core5a
-  libqt5dbus5 libqt5gui5 libqt5multimedia5 libqt5network5 libqt5opengl5
-  libqt5printsupport5 libqt5qml5 libqt5quick5 libqt5sql5 libqt5test5
-  libqt5widgets5 libqt5xml5 libsecret-common libwacom-common libwacom2
-  libwayland-bin libwayland-dev libwayland-server0 libx11-dev libx11-xcb-dev
-  libxau-dev libxcb-dri2-0-dev libxcb-dri3-dev libxcb-glx0-dev libxcb-icccm4
-  libxcb-image0 libxcb-keysyms1 libxcb-present-dev libxcb-randr0
-  libxcb-randr0-dev libxcb-render-util0 libxcb-render0-dev libxcb-shape0
-  libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0 libxcb-xfixes0-dev
-  libxcb-xinerama0 libxcb-xkb1 libxcb1-dev libxdamage-dev libxdmcp-dev
-  libxext-dev libxfixes-dev libxkbcommon-x11-0 libxshmfence-dev libxxf86vm-dev
-  mesa-common-dev qt5-qmake qt5-qmake-bin qtbase5-dev qtbase5-dev-tools
-  qtchooser tree ttf-dejavu-core ttf-dejavu-extra x11proto-core-dev
-  x11proto-damage-dev x11proto-dev x11proto-fixes-dev x11proto-xext-dev
-  x11proto-xf86vidmode-dev xorg-sgml-doctools xtrans-dev
-Suggested packages:
-  qt5-image-formats-plugins qtwayland5 qt5-qmltooling-plugins libwayland-doc
-  libxcb-doc libxext-doc python python3 libxml-simple-perl ruby
-  default-libmysqlclient-dev firebird-dev libpq-dev libsqlite3-dev
-  unixodbc-dev
-Recommended packages:
-  qttranslations5-l10n libqt5svg5 qt5-gtk-platformtheme libqt5sql5-sqlite
-  | libqt5sql5-mysql | libqt5sql5-odbc | libqt5sql5-psql | libqt5sql5-tds
-  | libqt5sql5-ibase libwacom-bin libx11-doc gnupg2 qrencode xclip
-  libqt5opengl5-dev
-The following NEW packages will be installed:
-  fonts-dejavu fonts-dejavu-extra libdouble-conversion1 libdrm-dev
-  libegl-mesa0 libegl1 libegl1-mesa-dev libevdev2 libgbm1 libgl1-mesa-dev
-  libgles1 libgles2 libgles2-mesa-dev libglu1-mesa libglu1-mesa-dev
-  libglvnd-core-dev libglvnd-dev libgudev-1.0-0 libinput-bin libinput10
-  libmtdev1 libopengl0 libpthread-stubs0-dev libpulse-mainloop-glib0
-  libqt5concurrent5 libqt5core5a libqt5dbus5 libqt5designer5 libqt5gui5
-  libqt5multimedia5 libqt5multimediawidgets5 libqt5network5 libqt5opengl5
-  libqt5printsupport5 libqt5qml5 libqt5quick5 libqt5quickwidgets5 libqt5sql5
-  libqt5test5 libqt5widgets5 libqt5xml5 libsecret-1-0 libsecret-common
-  libwacom-common libwacom2 libwayland-bin libwayland-dev libwayland-server0
-  libx11-dev libx11-xcb-dev libxau-dev libxcb-dri2-0-dev libxcb-dri3-dev
-  libxcb-glx0-dev libxcb-icccm4 libxcb-image0 libxcb-keysyms1
-  libxcb-present-dev libxcb-randr0 libxcb-randr0-dev libxcb-render-util0
-  libxcb-render0-dev libxcb-shape0 libxcb-shape0-dev libxcb-sync-dev
-  libxcb-xfixes0 libxcb-xfixes0-dev libxcb-xinerama0 libxcb-xkb1 libxcb1-dev
-  libxdamage-dev libxdmcp-dev libxext-dev libxfixes-dev libxkbcommon-x11-0
-  libxshmfence-dev libxxf86vm-dev mesa-common-dev pass qt5-default qt5-qmake
-  qt5-qmake-bin qtbase5-dev qtbase5-dev-tools qtchooser tree ttf-dejavu
-  ttf-dejavu-core ttf-dejavu-extra x11proto-core-dev x11proto-damage-dev
-  x11proto-dev x11proto-fixes-dev x11proto-xext-dev x11proto-xf86vidmode-dev
-  xorg-sgml-doctools xtrans-dev
-0 upgraded, 97 newly installed, 0 to remove and 15 not upgraded.
-Need to get 22.0 MB of archives.
-After this operation, 94.4 MB of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxcb-icccm4 amd64 0.4.1-1ubuntu1 [10.4 kB]
-Get:2 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxcb-keysyms1 amd64 0.4.0-1 [8,406 B]
-Get:3 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxcb-render-util0 amd64 0.3.9-1 [9,638 B]
-Get:4 http://archive.ubuntu.com/ubuntu bionic/main amd64 fonts-dejavu-extra all 2.37-1 [1,953 kB]
-Get:5 http://archive.ubuntu.com/ubuntu bionic/universe amd64 fonts-dejavu all 2.37-1 [3,130 B]
-Get:6 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libdrm-dev amd64 2.4.95-1~18.04.1 [121 kB]
-Get:7 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libwayland-server0 amd64 1.16.0-1ubuntu1.1~18.04.1 [29.8 kB]
-Get:8 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libgbm1 amd64 18.2.8-0ubuntu0~18.04.2 [24.2 kB]
-Get:9 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-xfixes0 amd64 1.13-2~ubuntu18.04 [9,352 B]
-Get:10 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libegl-mesa0 amd64 18.2.8-0ubuntu0~18.04.2 [87.5 kB]
-Get:11 http://archive.ubuntu.com/ubuntu bionic/main amd64 xorg-sgml-doctools all 1:1.11-1 [12.9 kB]
-Get:12 http://archive.ubuntu.com/ubuntu bionic/main amd64 x11proto-dev all 2018.4-4 [251 kB]
-Get:13 http://archive.ubuntu.com/ubuntu bionic/main amd64 x11proto-core-dev all 2018.4-4 [2,620 B]
-Get:14 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxau-dev amd64 1:1.0.8-1 [11.1 kB]
-Get:15 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxdmcp-dev amd64 1:1.1.2-3 [25.1 kB]
-Get:16 http://archive.ubuntu.com/ubuntu bionic/main amd64 xtrans-dev all 1.3.5-1 [70.5 kB]
-Get:17 http://archive.ubuntu.com/ubuntu bionic/main amd64 libpthread-stubs0-dev amd64 0.3-4 [4,068 B]
-Get:18 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb1-dev amd64 1.13-2~ubuntu18.04 [80.0 kB]
-Get:19 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libx11-dev amd64 2:1.6.4-3ubuntu0.2 [640 kB]
-Get:20 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 mesa-common-dev amd64 18.2.8-0ubuntu0~18.04.2 [559 kB]
-Get:21 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libglvnd-core-dev amd64 1.0.0-2ubuntu2.3 [12.8 kB]
-Get:22 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libegl1 amd64 1.0.0-2ubuntu2.3 [32.0 kB]
-Get:23 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libgles1 amd64 1.0.0-2ubuntu2.3 [11.2 kB]
-Get:24 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libgles2 amd64 1.0.0-2ubuntu2.3 [17.3 kB]
-Get:25 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libopengl0 amd64 1.0.0-2ubuntu2.3 [31.3 kB]
-Get:26 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libglvnd-dev amd64 1.0.0-2ubuntu2.3 [3,416 B]
-Get:27 http://archive.ubuntu.com/ubuntu bionic/main amd64 x11proto-xext-dev all 2018.4-4 [2,620 B]
-Get:28 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxext-dev amd64 2:1.3.3-1 [82.1 kB]
-Get:29 http://archive.ubuntu.com/ubuntu bionic/main amd64 x11proto-xf86vidmode-dev all 2018.4-4 [2,632 B]
-Get:30 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxxf86vm-dev amd64 1:1.1.4-1 [13.3 kB]
-Get:31 http://archive.ubuntu.com/ubuntu bionic/main amd64 x11proto-fixes-dev all 1:2018.4-4 [2,620 B]
-Get:32 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxfixes-dev amd64 1:5.0.3-1 [11.0 kB]
-Get:33 http://archive.ubuntu.com/ubuntu bionic/main amd64 x11proto-damage-dev all 1:2018.4-4 [2,620 B]
-Get:34 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxdamage-dev amd64 1:1.1.4-3 [5,028 B]
-Get:35 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-glx0-dev amd64 1.13-2~ubuntu18.04 [27.9 kB]
-Get:36 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-dri2-0-dev amd64 1.13-2~ubuntu18.04 [8,472 B]
-Get:37 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-dri3-dev amd64 1.13-2~ubuntu18.04 [7,384 B]
-Get:38 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-randr0 amd64 1.13-2~ubuntu18.04 [16.4 kB]
-Get:39 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-render0-dev amd64 1.13-2~ubuntu18.04 [18.4 kB]
-Get:40 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-randr0-dev amd64 1.13-2~ubuntu18.04 [20.4 kB]
-Get:41 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-shape0 amd64 1.13-2~ubuntu18.04 [5,972 B]
-Get:42 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-shape0-dev amd64 1.13-2~ubuntu18.04 [7,144 B]
-Get:43 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-xfixes0-dev amd64 1.13-2~ubuntu18.04 [11.7 kB]
-Get:44 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-sync-dev amd64 1.13-2~ubuntu18.04 [10.6 kB]
-Get:45 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-present-dev amd64 1.13-2~ubuntu18.04 [6,972 B]
-Get:46 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxshmfence-dev amd64 1.3-1 [3,692 B]
-Get:47 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libx11-xcb-dev amd64 2:1.6.4-3ubuntu0.2 [9,756 B]
-Get:48 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libwayland-bin amd64 1.16.0-1ubuntu1.1~18.04.1 [20.0 kB]
-Get:49 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libwayland-dev amd64 1.16.0-1ubuntu1.1~18.04.1 [62.8 kB]
-Get:50 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libegl1-mesa-dev amd64 18.2.8-0ubuntu0~18.04.2 [17.8 kB]
-Get:51 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libgles2-mesa-dev amd64 18.2.8-0ubuntu0~18.04.2 [41.8 kB]
-Get:52 http://archive.ubuntu.com/ubuntu bionic/main amd64 libglu1-mesa amd64 9.0.0-2.1build1 [168 kB]
-Get:53 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libgl1-mesa-dev amd64 18.2.8-0ubuntu0~18.04.2 [4,428 B]
-Get:54 http://archive.ubuntu.com/ubuntu bionic/main amd64 libglu1-mesa-dev amd64 9.0.0-2.1build1 [206 kB]
-Get:55 http://archive.ubuntu.com/ubuntu bionic/main amd64 libgudev-1.0-0 amd64 1:232-2 [13.6 kB]
-Get:56 http://archive.ubuntu.com/ubuntu bionic/main amd64 libwacom-common all 0.29-1 [36.9 kB]
-Get:57 http://archive.ubuntu.com/ubuntu bionic/main amd64 libwacom2 amd64 0.29-1 [17.7 kB]
-Get:58 http://archive.ubuntu.com/ubuntu bionic/main amd64 libinput-bin amd64 1.10.4-1 [11.0 kB]
-Get:59 http://archive.ubuntu.com/ubuntu bionic/main amd64 libevdev2 amd64 1.5.8+dfsg-1 [29.0 kB]
-Get:60 http://archive.ubuntu.com/ubuntu bionic/main amd64 libmtdev1 amd64 1.1.5-1ubuntu3 [13.8 kB]
-Get:61 http://archive.ubuntu.com/ubuntu bionic/main amd64 libinput10 amd64 1.10.4-1 [86.2 kB]
-Get:62 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpulse-mainloop-glib0 amd64 1:11.1-1ubuntu7.2 [22.1 kB]
-Get:63 http://archive.ubuntu.com/ubuntu bionic/main amd64 libdouble-conversion1 amd64 2.0.1-4ubuntu1 [33.0 kB]
-Get:64 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libqt5core5a amd64 5.9.5+dfsg-0ubuntu2.1 [2,037 kB]
-Get:65 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libqt5concurrent5 amd64 5.9.5+dfsg-0ubuntu2.1 [29.8 kB]
-Get:66 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libqt5dbus5 amd64 5.9.5+dfsg-0ubuntu2.1 [196 kB]
-Get:67 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libqt5network5 amd64 5.9.5+dfsg-0ubuntu2.1 [635 kB]
-Get:68 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxcb-image0 amd64 0.4.0-1build1 [12.3 kB]
-Get:69 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-xinerama0 amd64 1.13-2~ubuntu18.04 [5,264 B]
-Get:70 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb-xkb1 amd64 1.13-2~ubuntu18.04 [30.1 kB]
-Get:71 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxkbcommon-x11-0 amd64 0.8.0-1ubuntu0.1 [13.5 kB]
-Get:72 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libqt5gui5 amd64 5.9.5+dfsg-0ubuntu2.1 [2,564 kB]
-Get:73 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libqt5widgets5 amd64 5.9.5+dfsg-0ubuntu2.1 [2,202 kB]
-Get:74 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libqt5xml5 amd64 5.9.5+dfsg-0ubuntu2.1 [99.8 kB]
-Get:75 http://archive.ubuntu.com/ubuntu bionic/universe amd64 libqt5designer5 amd64 5.9.5-0ubuntu1 [2,761 kB]
-Get:76 http://archive.ubuntu.com/ubuntu bionic/universe amd64 libqt5multimedia5 amd64 5.9.5-0ubuntu1 [293 kB]
-Get:77 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libqt5opengl5 amd64 5.9.5+dfsg-0ubuntu2.1 [132 kB]
-Get:78 http://archive.ubuntu.com/ubuntu bionic/universe amd64 libqt5multimediawidgets5 amd64 5.9.5-0ubuntu1 [36.6 kB]
-Get:79 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libqt5printsupport5 amd64 5.9.5+dfsg-0ubuntu2.1 [178 kB]
-Get:80 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 libqt5qml5 amd64 5.9.5-0ubuntu1.1 [1,242 kB]
-Get:81 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 libqt5quick5 amd64 5.9.5-0ubuntu1.1 [1,201 kB]
-Get:82 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 libqt5quickwidgets5 amd64 5.9.5-0ubuntu1.1 [35.7 kB]
-Get:83 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libqt5sql5 amd64 5.9.5+dfsg-0ubuntu2.1 [115 kB]
-Get:84 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libqt5test5 amd64 5.9.5+dfsg-0ubuntu2.1 [98.0 kB]
-Get:85 http://archive.ubuntu.com/ubuntu bionic/main amd64 libsecret-common all 0.18.6-1 [4,452 B]
-Get:86 http://archive.ubuntu.com/ubuntu bionic/main amd64 libsecret-1-0 amd64 0.18.6-1 [94.6 kB]
-Get:87 http://archive.ubuntu.com/ubuntu bionic/universe amd64 tree amd64 1.7.0-5 [40.7 kB]
-Get:88 http://archive.ubuntu.com/ubuntu bionic/universe amd64 pass all 1.7.1-3 [36.3 kB]
-Get:89 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 qt5-qmake-bin amd64 5.9.5+dfsg-0ubuntu2.1 [938 kB]
-Get:90 http://archive.ubuntu.com/ubuntu bionic/main amd64 qtchooser amd64 64-ga1b6736-5 [24.1 kB]
-Get:91 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 qt5-qmake amd64 5.9.5+dfsg-0ubuntu2.1 [180 kB]
-Get:92 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 qtbase5-dev-tools amd64 5.9.5+dfsg-0ubuntu2.1 [723 kB]
-Get:93 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 qtbase5-dev amd64 5.9.5+dfsg-0ubuntu2.1 [942 kB]
-Get:94 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 qt5-default amd64 5.9.5+dfsg-0ubuntu2.1 [20.9 kB]
-Get:95 http://archive.ubuntu.com/ubuntu bionic/universe amd64 ttf-dejavu-core all 2.37-1 [2,978 B]
-Get:96 http://archive.ubuntu.com/ubuntu bionic/universe amd64 ttf-dejavu-extra all 2.37-1 [3,100 B]
-Get:97 http://archive.ubuntu.com/ubuntu bionic/universe amd64 ttf-dejavu all 2.37-1 [2,824 B]
-[91mdebconf: delaying package configuration, since apt-utils is not installed
-[0mFetched 22.0 MB in 2s (11.1 MB/s)
-Selecting previously unselected package libxcb-icccm4:amd64.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 23486 files and directories currently installed.)
-Preparing to unpack .../00-libxcb-icccm4_0.4.1-1ubuntu1_amd64.deb ...
-Unpacking libxcb-icccm4:amd64 (0.4.1-1ubuntu1) ...
-Selecting previously unselected package libxcb-keysyms1:amd64.
-Preparing to unpack .../01-libxcb-keysyms1_0.4.0-1_amd64.deb ...
-Unpacking libxcb-keysyms1:amd64 (0.4.0-1) ...
-Selecting previously unselected package libxcb-render-util0:amd64.
-Preparing to unpack .../02-libxcb-render-util0_0.3.9-1_amd64.deb ...
-Unpacking libxcb-render-util0:amd64 (0.3.9-1) ...
-Selecting previously unselected package fonts-dejavu-extra.
-Preparing to unpack .../03-fonts-dejavu-extra_2.37-1_all.deb ...
-Unpacking fonts-dejavu-extra (2.37-1) ...
-Selecting previously unselected package fonts-dejavu.
-Preparing to unpack .../04-fonts-dejavu_2.37-1_all.deb ...
-Unpacking fonts-dejavu (2.37-1) ...
-Selecting previously unselected package libdrm-dev:amd64.
-Preparing to unpack .../05-libdrm-dev_2.4.95-1~18.04.1_amd64.deb ...
-Unpacking libdrm-dev:amd64 (2.4.95-1~18.04.1) ...
-Selecting previously unselected package libwayland-server0:amd64.
-Preparing to unpack .../06-libwayland-server0_1.16.0-1ubuntu1.1~18.04.1_amd64.deb ...
-Unpacking libwayland-server0:amd64 (1.16.0-1ubuntu1.1~18.04.1) ...
-Selecting previously unselected package libgbm1:amd64.
-Preparing to unpack .../07-libgbm1_18.2.8-0ubuntu0~18.04.2_amd64.deb ...
-Unpacking libgbm1:amd64 (18.2.8-0ubuntu0~18.04.2) ...
-Selecting previously unselected package libxcb-xfixes0:amd64.
-Preparing to unpack .../08-libxcb-xfixes0_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-xfixes0:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libegl-mesa0:amd64.
-Preparing to unpack .../09-libegl-mesa0_18.2.8-0ubuntu0~18.04.2_amd64.deb ...
-Unpacking libegl-mesa0:amd64 (18.2.8-0ubuntu0~18.04.2) ...
-Selecting previously unselected package xorg-sgml-doctools.
-Preparing to unpack .../10-xorg-sgml-doctools_1%3a1.11-1_all.deb ...
-Unpacking xorg-sgml-doctools (1:1.11-1) ...
-Selecting previously unselected package x11proto-dev.
-Preparing to unpack .../11-x11proto-dev_2018.4-4_all.deb ...
-Unpacking x11proto-dev (2018.4-4) ...
-Selecting previously unselected package x11proto-core-dev.
-Preparing to unpack .../12-x11proto-core-dev_2018.4-4_all.deb ...
-Unpacking x11proto-core-dev (2018.4-4) ...
-Selecting previously unselected package libxau-dev:amd64.
-Preparing to unpack .../13-libxau-dev_1%3a1.0.8-1_amd64.deb ...
-Unpacking libxau-dev:amd64 (1:1.0.8-1) ...
-Selecting previously unselected package libxdmcp-dev:amd64.
-Preparing to unpack .../14-libxdmcp-dev_1%3a1.1.2-3_amd64.deb ...
-Unpacking libxdmcp-dev:amd64 (1:1.1.2-3) ...
-Selecting previously unselected package xtrans-dev.
-Preparing to unpack .../15-xtrans-dev_1.3.5-1_all.deb ...
-Unpacking xtrans-dev (1.3.5-1) ...
-Selecting previously unselected package libpthread-stubs0-dev:amd64.
-Preparing to unpack .../16-libpthread-stubs0-dev_0.3-4_amd64.deb ...
-Unpacking libpthread-stubs0-dev:amd64 (0.3-4) ...
-Selecting previously unselected package libxcb1-dev:amd64.
-Preparing to unpack .../17-libxcb1-dev_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb1-dev:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libx11-dev:amd64.
-Preparing to unpack .../18-libx11-dev_2%3a1.6.4-3ubuntu0.2_amd64.deb ...
-Unpacking libx11-dev:amd64 (2:1.6.4-3ubuntu0.2) ...
-Selecting previously unselected package mesa-common-dev:amd64.
-Preparing to unpack .../19-mesa-common-dev_18.2.8-0ubuntu0~18.04.2_amd64.deb ...
-Unpacking mesa-common-dev:amd64 (18.2.8-0ubuntu0~18.04.2) ...
-Selecting previously unselected package libglvnd-core-dev:amd64.
-Preparing to unpack .../20-libglvnd-core-dev_1.0.0-2ubuntu2.3_amd64.deb ...
-Unpacking libglvnd-core-dev:amd64 (1.0.0-2ubuntu2.3) ...
-Selecting previously unselected package libegl1:amd64.
-Preparing to unpack .../21-libegl1_1.0.0-2ubuntu2.3_amd64.deb ...
-Unpacking libegl1:amd64 (1.0.0-2ubuntu2.3) ...
-Selecting previously unselected package libgles1:amd64.
-Preparing to unpack .../22-libgles1_1.0.0-2ubuntu2.3_amd64.deb ...
-Unpacking libgles1:amd64 (1.0.0-2ubuntu2.3) ...
-Selecting previously unselected package libgles2:amd64.
-Preparing to unpack .../23-libgles2_1.0.0-2ubuntu2.3_amd64.deb ...
-Unpacking libgles2:amd64 (1.0.0-2ubuntu2.3) ...
-Selecting previously unselected package libopengl0:amd64.
-Preparing to unpack .../24-libopengl0_1.0.0-2ubuntu2.3_amd64.deb ...
-Unpacking libopengl0:amd64 (1.0.0-2ubuntu2.3) ...
-Selecting previously unselected package libglvnd-dev:amd64.
-Preparing to unpack .../25-libglvnd-dev_1.0.0-2ubuntu2.3_amd64.deb ...
-Unpacking libglvnd-dev:amd64 (1.0.0-2ubuntu2.3) ...
-Selecting previously unselected package x11proto-xext-dev.
-Preparing to unpack .../26-x11proto-xext-dev_2018.4-4_all.deb ...
-Unpacking x11proto-xext-dev (2018.4-4) ...
-Selecting previously unselected package libxext-dev:amd64.
-Preparing to unpack .../27-libxext-dev_2%3a1.3.3-1_amd64.deb ...
-Unpacking libxext-dev:amd64 (2:1.3.3-1) ...
-Selecting previously unselected package x11proto-xf86vidmode-dev.
-Preparing to unpack .../28-x11proto-xf86vidmode-dev_2018.4-4_all.deb ...
-Unpacking x11proto-xf86vidmode-dev (2018.4-4) ...
-Selecting previously unselected package libxxf86vm-dev:amd64.
-Preparing to unpack .../29-libxxf86vm-dev_1%3a1.1.4-1_amd64.deb ...
-Unpacking libxxf86vm-dev:amd64 (1:1.1.4-1) ...
-Selecting previously unselected package x11proto-fixes-dev.
-Preparing to unpack .../30-x11proto-fixes-dev_1%3a2018.4-4_all.deb ...
-Unpacking x11proto-fixes-dev (1:2018.4-4) ...
-Selecting previously unselected package libxfixes-dev:amd64.
-Preparing to unpack .../31-libxfixes-dev_1%3a5.0.3-1_amd64.deb ...
-Unpacking libxfixes-dev:amd64 (1:5.0.3-1) ...
-Selecting previously unselected package x11proto-damage-dev.
-Preparing to unpack .../32-x11proto-damage-dev_1%3a2018.4-4_all.deb ...
-Unpacking x11proto-damage-dev (1:2018.4-4) ...
-Selecting previously unselected package libxdamage-dev:amd64.
-Preparing to unpack .../33-libxdamage-dev_1%3a1.1.4-3_amd64.deb ...
-Unpacking libxdamage-dev:amd64 (1:1.1.4-3) ...
-Selecting previously unselected package libxcb-glx0-dev:amd64.
-Preparing to unpack .../34-libxcb-glx0-dev_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-glx0-dev:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libxcb-dri2-0-dev:amd64.
-Preparing to unpack .../35-libxcb-dri2-0-dev_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-dri2-0-dev:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libxcb-dri3-dev:amd64.
-Preparing to unpack .../36-libxcb-dri3-dev_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-dri3-dev:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libxcb-randr0:amd64.
-Preparing to unpack .../37-libxcb-randr0_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-randr0:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libxcb-render0-dev:amd64.
-Preparing to unpack .../38-libxcb-render0-dev_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-render0-dev:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libxcb-randr0-dev:amd64.
-Preparing to unpack .../39-libxcb-randr0-dev_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-randr0-dev:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libxcb-shape0:amd64.
-Preparing to unpack .../40-libxcb-shape0_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-shape0:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libxcb-shape0-dev:amd64.
-Preparing to unpack .../41-libxcb-shape0-dev_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-shape0-dev:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libxcb-xfixes0-dev:amd64.
-Preparing to unpack .../42-libxcb-xfixes0-dev_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-xfixes0-dev:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libxcb-sync-dev:amd64.
-Preparing to unpack .../43-libxcb-sync-dev_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-sync-dev:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libxcb-present-dev:amd64.
-Preparing to unpack .../44-libxcb-present-dev_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-present-dev:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libxshmfence-dev:amd64.
-Preparing to unpack .../45-libxshmfence-dev_1.3-1_amd64.deb ...
-Unpacking libxshmfence-dev:amd64 (1.3-1) ...
-Selecting previously unselected package libx11-xcb-dev:amd64.
-Preparing to unpack .../46-libx11-xcb-dev_2%3a1.6.4-3ubuntu0.2_amd64.deb ...
-Unpacking libx11-xcb-dev:amd64 (2:1.6.4-3ubuntu0.2) ...
-Selecting previously unselected package libwayland-bin.
-Preparing to unpack .../47-libwayland-bin_1.16.0-1ubuntu1.1~18.04.1_amd64.deb ...
-Unpacking libwayland-bin (1.16.0-1ubuntu1.1~18.04.1) ...
-Selecting previously unselected package libwayland-dev:amd64.
-Preparing to unpack .../48-libwayland-dev_1.16.0-1ubuntu1.1~18.04.1_amd64.deb ...
-Unpacking libwayland-dev:amd64 (1.16.0-1ubuntu1.1~18.04.1) ...
-Selecting previously unselected package libegl1-mesa-dev:amd64.
-Preparing to unpack .../49-libegl1-mesa-dev_18.2.8-0ubuntu0~18.04.2_amd64.deb ...
-Unpacking libegl1-mesa-dev:amd64 (18.2.8-0ubuntu0~18.04.2) ...
-Selecting previously unselected package libgles2-mesa-dev:amd64.
-Preparing to unpack .../50-libgles2-mesa-dev_18.2.8-0ubuntu0~18.04.2_amd64.deb ...
-Unpacking libgles2-mesa-dev:amd64 (18.2.8-0ubuntu0~18.04.2) ...
-Selecting previously unselected package libglu1-mesa:amd64.
-Preparing to unpack .../51-libglu1-mesa_9.0.0-2.1build1_amd64.deb ...
-Unpacking libglu1-mesa:amd64 (9.0.0-2.1build1) ...
-Selecting previously unselected package libgl1-mesa-dev:amd64.
-Preparing to unpack .../52-libgl1-mesa-dev_18.2.8-0ubuntu0~18.04.2_amd64.deb ...
-Unpacking libgl1-mesa-dev:amd64 (18.2.8-0ubuntu0~18.04.2) ...
-Selecting previously unselected package libglu1-mesa-dev:amd64.
-Preparing to unpack .../53-libglu1-mesa-dev_9.0.0-2.1build1_amd64.deb ...
-Unpacking libglu1-mesa-dev:amd64 (9.0.0-2.1build1) ...
-Selecting previously unselected package libgudev-1.0-0:amd64.
-Preparing to unpack .../54-libgudev-1.0-0_1%3a232-2_amd64.deb ...
-Unpacking libgudev-1.0-0:amd64 (1:232-2) ...
-Selecting previously unselected package libwacom-common.
-Preparing to unpack .../55-libwacom-common_0.29-1_all.deb ...
-Unpacking libwacom-common (0.29-1) ...
-Selecting previously unselected package libwacom2:amd64.
-Preparing to unpack .../56-libwacom2_0.29-1_amd64.deb ...
-Unpacking libwacom2:amd64 (0.29-1) ...
-Selecting previously unselected package libinput-bin.
-Preparing to unpack .../57-libinput-bin_1.10.4-1_amd64.deb ...
-Unpacking libinput-bin (1.10.4-1) ...
-Selecting previously unselected package libevdev2:amd64.
-Preparing to unpack .../58-libevdev2_1.5.8+dfsg-1_amd64.deb ...
-Unpacking libevdev2:amd64 (1.5.8+dfsg-1) ...
-Selecting previously unselected package libmtdev1:amd64.
-Preparing to unpack .../59-libmtdev1_1.1.5-1ubuntu3_amd64.deb ...
-Unpacking libmtdev1:amd64 (1.1.5-1ubuntu3) ...
-Selecting previously unselected package libinput10:amd64.
-Preparing to unpack .../60-libinput10_1.10.4-1_amd64.deb ...
-Unpacking libinput10:amd64 (1.10.4-1) ...
-Selecting previously unselected package libpulse-mainloop-glib0:amd64.
-Preparing to unpack .../61-libpulse-mainloop-glib0_1%3a11.1-1ubuntu7.2_amd64.deb ...
-Unpacking libpulse-mainloop-glib0:amd64 (1:11.1-1ubuntu7.2) ...
-Selecting previously unselected package libdouble-conversion1:amd64.
-Preparing to unpack .../62-libdouble-conversion1_2.0.1-4ubuntu1_amd64.deb ...
-Unpacking libdouble-conversion1:amd64 (2.0.1-4ubuntu1) ...
-Selecting previously unselected package libqt5core5a:amd64.
-Preparing to unpack .../63-libqt5core5a_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking libqt5core5a:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package libqt5concurrent5:amd64.
-Preparing to unpack .../64-libqt5concurrent5_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking libqt5concurrent5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package libqt5dbus5:amd64.
-Preparing to unpack .../65-libqt5dbus5_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking libqt5dbus5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package libqt5network5:amd64.
-Preparing to unpack .../66-libqt5network5_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking libqt5network5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package libxcb-image0:amd64.
-Preparing to unpack .../67-libxcb-image0_0.4.0-1build1_amd64.deb ...
-Unpacking libxcb-image0:amd64 (0.4.0-1build1) ...
-Selecting previously unselected package libxcb-xinerama0:amd64.
-Preparing to unpack .../68-libxcb-xinerama0_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-xinerama0:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libxcb-xkb1:amd64.
-Preparing to unpack .../69-libxcb-xkb1_1.13-2~ubuntu18.04_amd64.deb ...
-Unpacking libxcb-xkb1:amd64 (1.13-2~ubuntu18.04) ...
-Selecting previously unselected package libxkbcommon-x11-0:amd64.
-Preparing to unpack .../70-libxkbcommon-x11-0_0.8.0-1ubuntu0.1_amd64.deb ...
-Unpacking libxkbcommon-x11-0:amd64 (0.8.0-1ubuntu0.1) ...
-Selecting previously unselected package libqt5gui5:amd64.
-Preparing to unpack .../71-libqt5gui5_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking libqt5gui5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package libqt5widgets5:amd64.
-Preparing to unpack .../72-libqt5widgets5_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking libqt5widgets5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package libqt5xml5:amd64.
-Preparing to unpack .../73-libqt5xml5_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking libqt5xml5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package libqt5designer5:amd64.
-Preparing to unpack .../74-libqt5designer5_5.9.5-0ubuntu1_amd64.deb ...
-Unpacking libqt5designer5:amd64 (5.9.5-0ubuntu1) ...
-Selecting previously unselected package libqt5multimedia5:amd64.
-Preparing to unpack .../75-libqt5multimedia5_5.9.5-0ubuntu1_amd64.deb ...
-Unpacking libqt5multimedia5:amd64 (5.9.5-0ubuntu1) ...
-Selecting previously unselected package libqt5opengl5:amd64.
-Preparing to unpack .../76-libqt5opengl5_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking libqt5opengl5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package libqt5multimediawidgets5:amd64.
-Preparing to unpack .../77-libqt5multimediawidgets5_5.9.5-0ubuntu1_amd64.deb ...
-Unpacking libqt5multimediawidgets5:amd64 (5.9.5-0ubuntu1) ...
-Selecting previously unselected package libqt5printsupport5:amd64.
-Preparing to unpack .../78-libqt5printsupport5_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking libqt5printsupport5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package libqt5qml5:amd64.
-Preparing to unpack .../79-libqt5qml5_5.9.5-0ubuntu1.1_amd64.deb ...
-Unpacking libqt5qml5:amd64 (5.9.5-0ubuntu1.1) ...
-Selecting previously unselected package libqt5quick5:amd64.
-Preparing to unpack .../80-libqt5quick5_5.9.5-0ubuntu1.1_amd64.deb ...
-Unpacking libqt5quick5:amd64 (5.9.5-0ubuntu1.1) ...
-Selecting previously unselected package libqt5quickwidgets5:amd64.
-Preparing to unpack .../81-libqt5quickwidgets5_5.9.5-0ubuntu1.1_amd64.deb ...
-Unpacking libqt5quickwidgets5:amd64 (5.9.5-0ubuntu1.1) ...
-Selecting previously unselected package libqt5sql5:amd64.
-Preparing to unpack .../82-libqt5sql5_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking libqt5sql5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package libqt5test5:amd64.
-Preparing to unpack .../83-libqt5test5_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking libqt5test5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package libsecret-common.
-Preparing to unpack .../84-libsecret-common_0.18.6-1_all.deb ...
-Unpacking libsecret-common (0.18.6-1) ...
-Selecting previously unselected package libsecret-1-0:amd64.
-Preparing to unpack .../85-libsecret-1-0_0.18.6-1_amd64.deb ...
-Unpacking libsecret-1-0:amd64 (0.18.6-1) ...
-Selecting previously unselected package tree.
-Preparing to unpack .../86-tree_1.7.0-5_amd64.deb ...
-Unpacking tree (1.7.0-5) ...
-Selecting previously unselected package pass.
-Preparing to unpack .../87-pass_1.7.1-3_all.deb ...
-Unpacking pass (1.7.1-3) ...
-Selecting previously unselected package qt5-qmake-bin.
-Preparing to unpack .../88-qt5-qmake-bin_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking qt5-qmake-bin (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package qtchooser.
-Preparing to unpack .../89-qtchooser_64-ga1b6736-5_amd64.deb ...
-Unpacking qtchooser (64-ga1b6736-5) ...
-Selecting previously unselected package qt5-qmake:amd64.
-Preparing to unpack .../90-qt5-qmake_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking qt5-qmake:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package qtbase5-dev-tools.
-Preparing to unpack .../91-qtbase5-dev-tools_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking qtbase5-dev-tools (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package qtbase5-dev:amd64.
-Preparing to unpack .../92-qtbase5-dev_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking qtbase5-dev:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package qt5-default:amd64.
-Preparing to unpack .../93-qt5-default_5.9.5+dfsg-0ubuntu2.1_amd64.deb ...
-Unpacking qt5-default:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Selecting previously unselected package ttf-dejavu-core.
-Preparing to unpack .../94-ttf-dejavu-core_2.37-1_all.deb ...
-Unpacking ttf-dejavu-core (2.37-1) ...
-Selecting previously unselected package ttf-dejavu-extra.
-Preparing to unpack .../95-ttf-dejavu-extra_2.37-1_all.deb ...
-Unpacking ttf-dejavu-extra (2.37-1) ...
-Selecting previously unselected package ttf-dejavu.
-Preparing to unpack .../96-ttf-dejavu_2.37-1_all.deb ...
-Unpacking ttf-dejavu (2.37-1) ...
-Setting up libxcb-xinerama0:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libwayland-bin (1.16.0-1ubuntu1.1~18.04.1) ...
-Setting up libopengl0:amd64 (1.0.0-2ubuntu2.3) ...
-Setting up tree (1.7.0-5) ...
-Setting up libsecret-common (0.18.6-1) ...
-Setting up libxcb-render-util0:amd64 (0.3.9-1) ...
-Setting up libgles1:amd64 (1.0.0-2ubuntu2.3) ...
-Setting up libxcb-randr0:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libxcb-xfixes0:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libxcb-icccm4:amd64 (0.4.1-1ubuntu1) ...
-Setting up libpulse-mainloop-glib0:amd64 (1:11.1-1ubuntu7.2) ...
-Setting up libwacom-common (0.29-1) ...
-Setting up libxcb-image0:amd64 (0.4.0-1build1) ...
-Setting up libdouble-conversion1:amd64 (2.0.1-4ubuntu1) ...
-Setting up qt5-qmake-bin (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up libevdev2:amd64 (1.5.8+dfsg-1) ...
-Setting up ttf-dejavu-core (2.37-1) ...
-Setting up libxshmfence-dev:amd64 (1.3-1) ...
-Setting up libpthread-stubs0-dev:amd64 (0.3-4) ...
-Setting up libdrm-dev:amd64 (2.4.95-1~18.04.1) ...
-Setting up xorg-sgml-doctools (1:1.11-1) ...
-Setting up qtchooser (64-ga1b6736-5) ...
-Setting up pass (1.7.1-3) ...
-Setting up x11proto-dev (2018.4-4) ...
-Setting up x11proto-damage-dev (1:2018.4-4) ...
-Setting up xtrans-dev (1.3.5-1) ...
-Setting up x11proto-xext-dev (2018.4-4) ...
-Setting up qt5-qmake:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up libxdmcp-dev:amd64 (1:1.1.2-3) ...
-Processing triggers for libc-bin (2.27-3ubuntu1) ...
-Setting up libmtdev1:amd64 (1.1.5-1ubuntu3) ...
-Setting up libxcb-shape0:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libgles2:amd64 (1.0.0-2ubuntu2.3) ...
-Setting up libglu1-mesa:amd64 (9.0.0-2.1build1) ...
-Setting up libgudev-1.0-0:amd64 (1:232-2) ...
-Setting up libxcb-keysyms1:amd64 (0.4.0-1) ...
-Setting up fonts-dejavu-extra (2.37-1) ...
-Setting up libsecret-1-0:amd64 (0.18.6-1) ...
-Setting up libglvnd-core-dev:amd64 (1.0.0-2ubuntu2.3) ...
-Processing triggers for fontconfig (2.12.6-0ubuntu2) ...
-Setting up libwayland-server0:amd64 (1.16.0-1ubuntu1.1~18.04.1) ...
-Setting up fonts-dejavu (2.37-1) ...
-Setting up libxcb-xkb1:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libqt5core5a:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up libqt5dbus5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up libqt5network5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up x11proto-core-dev (2018.4-4) ...
-Setting up libwacom2:amd64 (0.29-1) ...
-Setting up x11proto-fixes-dev (1:2018.4-4) ...
-Setting up libgbm1:amd64 (18.2.8-0ubuntu0~18.04.2) ...
-Setting up libqt5test5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up x11proto-xf86vidmode-dev (2018.4-4) ...
-Setting up libxau-dev:amd64 (1:1.0.8-1) ...
-Setting up libinput-bin (1.10.4-1) ...
-Setting up libxkbcommon-x11-0:amd64 (0.8.0-1ubuntu0.1) ...
-Setting up ttf-dejavu-extra (2.37-1) ...
-Setting up libqt5xml5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up libqt5sql5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up libxcb1-dev:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libxcb-glx0-dev:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libegl-mesa0:amd64 (18.2.8-0ubuntu0~18.04.2) ...
-Setting up libx11-dev:amd64 (2:1.6.4-3ubuntu0.2) ...
-Setting up libwayland-dev:amd64 (1.16.0-1ubuntu1.1~18.04.1) ...
-Setting up libxxf86vm-dev:amd64 (1:1.1.4-1) ...
-Setting up libxfixes-dev:amd64 (1:5.0.3-1) ...
-Setting up libqt5concurrent5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up libxcb-sync-dev:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libqt5qml5:amd64 (5.9.5-0ubuntu1.1) ...
-Setting up libx11-xcb-dev:amd64 (2:1.6.4-3ubuntu0.2) ...
-Setting up qtbase5-dev-tools (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up mesa-common-dev:amd64 (18.2.8-0ubuntu0~18.04.2) ...
-Setting up ttf-dejavu (2.37-1) ...
-Setting up libxdamage-dev:amd64 (1:1.1.4-3) ...
-Setting up libinput10:amd64 (1.10.4-1) ...
-Setting up libxcb-dri2-0-dev:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libxcb-render0-dev:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libegl1:amd64 (1.0.0-2ubuntu2.3) ...
-Setting up libxcb-dri3-dev:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libqt5gui5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up libxext-dev:amd64 (2:1.3.3-1) ...
-Setting up libxcb-shape0-dev:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libqt5quick5:amd64 (5.9.5-0ubuntu1.1) ...
-Setting up libxcb-randr0-dev:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libqt5widgets5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up libxcb-xfixes0-dev:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libglvnd-dev:amd64 (1.0.0-2ubuntu2.3) ...
-Setting up libqt5printsupport5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up libqt5opengl5:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up libqt5multimedia5:amd64 (5.9.5-0ubuntu1) ...
-Setting up libxcb-present-dev:amd64 (1.13-2~ubuntu18.04) ...
-Setting up libqt5designer5:amd64 (5.9.5-0ubuntu1) ...
-Setting up libqt5multimediawidgets5:amd64 (5.9.5-0ubuntu1) ...
-Setting up libqt5quickwidgets5:amd64 (5.9.5-0ubuntu1.1) ...
-Setting up libgl1-mesa-dev:amd64 (18.2.8-0ubuntu0~18.04.2) ...
-Setting up libegl1-mesa-dev:amd64 (18.2.8-0ubuntu0~18.04.2) ...
-Setting up libglu1-mesa-dev:amd64 (9.0.0-2.1build1) ...
-Setting up libgles2-mesa-dev:amd64 (18.2.8-0ubuntu0~18.04.2) ...
-Setting up qtbase5-dev:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Setting up qt5-default:amd64 (5.9.5+dfsg-0ubuntu2.1) ...
-Processing triggers for libc-bin (2.27-3ubuntu1) ...
-Removing intermediate container bef7e51ace14
- ---> 3eb94f838933
-Step 14/20 : RUN apt install -y /tmp/proton.deb
- ---> Running in 19899a4d9243
-[91m
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
 
-[0mReading package lists...
-Building dependency tree...
-Reading state information...
-Suggested packages:
-  gnome-keyring
-The following NEW packages will be installed:
-  protonmail-bridge
-0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
-Need to get 0 B/37.8 MB of archives.
-After this operation, 0 B of additional disk space will be used.
-Get:1 /tmp/proton.deb protonmail-bridge amd64 1.1.5-1 [37.8 MB]
-[91mdebconf: delaying package configuration, since apt-utils is not installed
-[0mSelecting previously unselected package protonmail-bridge.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 27642 files and directories currently installed.)
-Preparing to unpack /tmp/proton.deb ...
-Unpacking protonmail-bridge (1.1.5-1) ...
-Setting up protonmail-bridge (1.1.5-1) ...
-Removing intermediate container 19899a4d9243
- ---> 819da215e3fc
-Step 15/20 : COPY gpgparams /opt/
- ---> c1d1f6cf2498
-Step 16/20 : COPY entrypoint.sh /usr/bin/entrypoint.sh
- ---> e1dd0e2378ce
-Step 17/20 : ENV LANG en_US.UTF-8
- ---> Running in 1e53a708e30a
-Removing intermediate container 1e53a708e30a
- ---> 74a9bcf9ecaf
-Step 18/20 : WORKDIR $HOME
- ---> Running in 9e42853dc0fe
-Removing intermediate container 9e42853dc0fe
- ---> b169e6859ec3
-Step 19/20 : USER thunderbird-proton
- ---> Running in ab55d628dcd2
-Removing intermediate container ab55d628dcd2
- ---> fa2acca686af
-Step 20/20 : ENTRYPOINT [ "entrypoint.sh" ]
- ---> Running in e6525162fdcb
-Removing intermediate container e6525162fdcb
- ---> 1c51b3c2d4cd
-Successfully built 1c51b3c2d4cd
-Successfully tagged thunderbird-proton:latest
+> spawn-sync@1.0.15 postinstall /opt/protonmail/node_modules/electron/node_modules/spawn-sync
+> node postinstall
+
+
+> electron@6.0.0-wvvmp-beta.7 postinstall /opt/protonmail/node_modules/electron
+> node install.js
+
+electron@6.0.0-wvvmp-beta.7 (git+https://github.com/castlabs/electron-releases.git#5b4716467259d17c67606cb22ad240c92d583871) /opt/protonmail/node_modules/electron
+├── @types/node@8.10.49 
+├─┬ electron-download@4.1.1 
+│ ├─┬ debug@3.2.6 
+│ │ └── ms@2.1.2 
+│ ├── env-paths@1.0.0 
+│ ├─┬ fs-extra@4.0.3 
+│ │ ├── graceful-fs@4.1.15 
+│ │ ├── jsonfile@4.0.0 
+│ │ └── universalify@0.1.2 
+│ ├── minimist@1.2.0 
+│ ├─┬ nugget@2.0.1 
+│ │ ├─┬ debug@2.6.9 
+│ │ │ └── ms@2.0.0 
+│ │ ├─┬ pretty-bytes@1.0.4 
+│ │ │ └─┬ meow@3.7.0 
+│ │ │   ├─┬ camelcase-keys@2.1.0 
+│ │ │   │ └── camelcase@2.1.1 
+│ │ │   ├── decamelize@1.2.0 
+│ │ │   ├─┬ loud-rejection@1.6.0 
+│ │ │   │ ├─┬ currently-unhandled@0.4.1 
+│ │ │   │ │ └── array-find-index@1.0.2 
+│ │ │   │ └── signal-exit@3.0.2 
+│ │ │   ├── map-obj@1.0.1 
+│ │ │   ├─┬ normalize-package-data@2.5.0 
+│ │ │   │ ├── hosted-git-info@2.7.1 
+│ │ │   │ └─┬ validate-npm-package-license@3.0.4 
+│ │ │   │   ├─┬ spdx-correct@3.1.0 
+│ │ │   │   │ └── spdx-license-ids@3.0.4 
+│ │ │   │   └─┬ spdx-expression-parse@3.0.0 
+│ │ │   │     └── spdx-exceptions@2.2.0 
+│ │ │   ├─┬ read-pkg-up@1.0.1 
+│ │ │   │ ├─┬ find-up@1.1.2 
+│ │ │   │ │ └── path-exists@2.1.0 
+│ │ │   │ └─┬ read-pkg@1.1.0 
+│ │ │   │   ├─┬ load-json-file@1.1.0 
+│ │ │   │   │ ├─┬ parse-json@2.2.0 
+│ │ │   │   │ │ └─┬ error-ex@1.3.2 
+│ │ │   │   │ │   └── is-arrayish@0.2.1 
+│ │ │   │   │ ├── pify@2.3.0 
+│ │ │   │   │ └─┬ strip-bom@2.0.0 
+│ │ │   │   │   └── is-utf8@0.2.1 
+│ │ │   │   └── path-type@1.1.0 
+│ │ │   ├─┬ redent@1.0.0 
+│ │ │   │ └─┬ indent-string@2.1.0 
+│ │ │   │   └── repeating@2.0.1 
+│ │ │   └── trim-newlines@1.0.0 
+│ │ ├─┬ progress-stream@1.2.0 
+│ │ │ ├── speedometer@0.1.4 
+│ │ │ └─┬ through2@0.2.3 
+│ │ │   ├─┬ readable-stream@1.1.14 
+│ │ │   │ └── string_decoder@0.10.31 
+│ │ │   └─┬ xtend@2.1.2 
+│ │ │     └── object-keys@0.4.0 
+│ │ ├─┬ request@2.88.0 
+│ │ │ ├── aws-sign2@0.7.0 
+│ │ │ ├── aws4@1.8.0 
+│ │ │ ├── caseless@0.12.0 
+│ │ │ ├─┬ combined-stream@1.0.8 
+│ │ │ │ └── delayed-stream@1.0.0 
+│ │ │ ├── extend@3.0.2 
+│ │ │ ├── forever-agent@0.6.1 
+│ │ │ ├─┬ form-data@2.3.3 
+│ │ │ │ └── asynckit@0.4.0 
+│ │ │ ├─┬ har-validator@5.1.3 
+│ │ │ │ ├─┬ ajv@6.10.0 
+│ │ │ │ │ ├── fast-deep-equal@2.0.1 
+│ │ │ │ │ ├── fast-json-stable-stringify@2.0.0 
+│ │ │ │ │ ├── json-schema-traverse@0.4.1 
+│ │ │ │ │ └─┬ uri-js@4.2.2 
+│ │ │ │ │   └── punycode@2.1.1 
+│ │ │ │ └── har-schema@2.0.0 
+│ │ │ ├─┬ http-signature@1.2.0 
+│ │ │ │ ├── assert-plus@1.0.0 
+│ │ │ │ ├─┬ jsprim@1.4.1 
+│ │ │ │ │ ├── extsprintf@1.3.0 
+│ │ │ │ │ ├── json-schema@0.2.3 
+│ │ │ │ │ └── verror@1.10.0 
+│ │ │ │ └─┬ sshpk@1.16.1 
+│ │ │ │   ├── asn1@0.2.4 
+│ │ │ │   ├── bcrypt-pbkdf@1.0.2 
+│ │ │ │   ├── dashdash@1.14.1 
+│ │ │ │   ├── ecc-jsbn@0.1.2 
+│ │ │ │   ├── getpass@0.1.7 
+│ │ │ │   ├── jsbn@0.1.1 
+│ │ │ │   ├── safer-buffer@2.1.2 
+│ │ │ │   └── tweetnacl@0.14.5 
+│ │ │ ├── is-typedarray@1.0.0 
+│ │ │ ├── isstream@0.1.2 
+│ │ │ ├── json-stringify-safe@5.0.1 
+│ │ │ ├─┬ mime-types@2.1.24 
+│ │ │ │ └── mime-db@1.40.0 
+│ │ │ ├── oauth-sign@0.9.0 
+│ │ │ ├── performance-now@2.1.0 
+│ │ │ ├── qs@6.5.2 
+│ │ │ ├── safe-buffer@5.1.2 
+│ │ │ ├─┬ tough-cookie@2.4.3 
+│ │ │ │ ├── psl@1.1.32 
+│ │ │ │ └── punycode@1.4.1 
+│ │ │ ├── tunnel-agent@0.6.0 
+│ │ │ └── uuid@3.3.2 
+│ │ ├─┬ single-line-log@1.1.2 
+│ │ │ └─┬ string-width@1.0.2 
+│ │ │   ├── code-point-at@1.1.0 
+│ │ │   ├─┬ is-fullwidth-code-point@1.0.0 
+│ │ │   │ └── number-is-nan@1.0.1 
+│ │ │   └── strip-ansi@3.0.1 
+│ │ └── throttleit@0.0.2 
+│ ├─┬ rc@1.2.8 
+│ │ ├── deep-extend@0.6.0 
+│ │ ├── ini@1.3.5 
+│ │ └── strip-json-comments@2.0.1 
+│ ├── semver@5.7.0 
+│ └─┬ sumchecker@2.0.2 
+│   └─┬ debug@2.6.9 
+│     └── ms@2.0.0 
+├─┬ extract-zip@1.6.7 
+│ ├─┬ concat-stream@1.6.2 
+│ │ ├── buffer-from@1.1.1 
+│ │ ├── inherits@2.0.3 
+│ │ ├─┬ readable-stream@2.3.6 
+│ │ │ ├── core-util-is@1.0.2 
+│ │ │ ├── isarray@1.0.0 
+│ │ │ ├── process-nextick-args@2.0.0 
+│ │ │ ├── string_decoder@1.1.1 
+│ │ │ └── util-deprecate@1.0.2 
+│ │ └── typedarray@0.0.6 
+│ ├─┬ debug@2.6.9 
+│ │ └── ms@2.0.0 
+│ ├─┬ mkdirp@0.5.1 
+│ │ └── minimist@0.0.8 
+│ └─┬ yauzl@2.4.1 
+│   └─┬ fd-slicer@1.0.1 
+│     └── pend@1.2.0 
+├── home-path@0.1.2 
+├─┬ path-exists@2.1.0 
+│ └─┬ pinkie-promise@2.0.1 
+│   └── pinkie@2.0.4 
+└─┬ standard@5.4.1 
+  ├── eslint-config-standard@4.4.0 
+  ├── eslint-config-standard-react@1.2.1 
+  ├── eslint-plugin-react@3.16.1 
+  ├── eslint-plugin-standard@1.3.3 
+  ├─┬ standard-engine@2.2.5 
+  │ ├─┬ defaults@1.0.3 
+  │ │ └── clone@1.0.4 
+  │ ├─┬ deglob@1.1.2 
+  │ │ ├── find-root@1.1.0 
+  │ │ ├─┬ glob@7.1.4 
+  │ │ │ ├── fs.realpath@1.0.0 
+  │ │ │ ├── inflight@1.0.6 
+  │ │ │ └── once@1.4.0 
+  │ │ ├── ignore@3.3.10 
+  │ │ ├── run-parallel@1.1.9 
+  │ │ ├── uniq@1.0.1 
+  │ │ └── xtend@4.0.1 
+  │ ├─┬ dezalgo@1.0.3 
+  │ │ ├── asap@2.0.6 
+  │ │ └── wrappy@1.0.2 
+  │ ├─┬ eslint@1.9.0 
+  │ │ ├─┬ chalk@1.1.3 
+  │ │ │ ├── ansi-styles@2.2.1 
+  │ │ │ ├── has-ansi@2.0.0 
+  │ │ │ └── supports-color@2.0.0 
+  │ │ ├─┬ debug@2.6.9 
+  │ │ │ └── ms@2.0.0 
+  │ │ ├─┬ doctrine@0.7.2 
+  │ │ │ ├── esutils@1.1.6 
+  │ │ │ └── isarray@0.0.1 
+  │ │ ├── escape-string-regexp@1.0.5 
+  │ │ ├─┬ escope@3.6.0 
+  │ │ │ ├─┬ es6-map@0.1.5 
+  │ │ │ │ ├── d@1.0.0 
+  │ │ │ │ ├─┬ es5-ext@0.10.50 
+  │ │ │ │ │ └── next-tick@1.0.0 
+  │ │ │ │ ├── es6-iterator@2.0.3 
+  │ │ │ │ ├── es6-set@0.1.5 
+  │ │ │ │ ├── es6-symbol@3.1.1 
+  │ │ │ │ └── event-emitter@0.3.5 
+  │ │ │ ├── es6-weak-map@2.0.3 
+  │ │ │ └── esrecurse@4.2.1 
+  │ │ ├── espree@2.2.5 
+  │ │ ├── estraverse@4.2.0 
+  │ │ ├── estraverse-fb@1.3.2 
+  │ │ ├── esutils@2.0.2 
+  │ │ ├─┬ file-entry-cache@1.3.1 
+  │ │ │ └─┬ flat-cache@1.3.4 
+  │ │ │   ├── circular-json@0.3.3 
+  │ │ │   ├── rimraf@2.6.3 
+  │ │ │   └── write@0.2.1 
+  │ │ ├── glob@5.0.15 
+  │ │ ├── globals@8.18.0 
+  │ │ ├─┬ handlebars@4.1.2 
+  │ │ │ ├── neo-async@2.6.1 
+  │ │ │ ├─┬ optimist@0.6.1 
+  │ │ │ │ └── minimist@0.0.10 
+  │ │ │ ├── source-map@0.6.1 
+  │ │ │ └─┬ uglify-js@3.6.0 
+  │ │ │   └── commander@2.20.0 
+  │ │ ├─┬ inquirer@0.11.4 
+  │ │ │ ├── ansi-escapes@1.4.0 
+  │ │ │ ├── ansi-regex@2.1.1 
+  │ │ │ ├─┬ cli-cursor@1.0.2 
+  │ │ │ │ └─┬ restore-cursor@1.0.1 
+  │ │ │ │   ├── exit-hook@1.1.1 
+  │ │ │ │   └── onetime@1.1.0 
+  │ │ │ ├── cli-width@1.1.1 
+  │ │ │ ├── figures@1.7.0 
+  │ │ │ ├── lodash@3.10.1 
+  │ │ │ ├─┬ readline2@1.0.1 
+  │ │ │ │ └── mute-stream@0.0.5 
+  │ │ │ ├── run-async@0.1.0 
+  │ │ │ ├── rx-lite@3.1.2 
+  │ │ │ └── through@2.3.8 
+  │ │ ├─┬ is-my-json-valid@2.20.0 
+  │ │ │ ├─┬ generate-function@2.3.1 
+  │ │ │ │ └── is-property@1.0.2 
+  │ │ │ ├── generate-object-property@1.2.0 
+  │ │ │ ├── is-my-ip-valid@1.0.0 
+  │ │ │ ├── jsonpointer@4.0.1 
+  │ │ │ └── xtend@4.0.1 
+  │ │ ├── is-resolvable@1.1.0 
+  │ │ ├─┬ js-yaml@3.13.1 
+  │ │ │ ├─┬ argparse@1.0.10 
+  │ │ │ │ └── sprintf-js@1.0.3 
+  │ │ │ └── esprima@4.0.1 
+  │ │ ├─┬ json-stable-stringify@1.0.1 
+  │ │ │ └── jsonify@0.0.0 
+  │ │ ├─┬ lodash.clonedeep@3.0.2 
+  │ │ │ ├─┬ lodash._baseclone@3.3.0 
+  │ │ │ │ ├── lodash._baseassign@3.2.0 
+  │ │ │ │ └── lodash._basefor@3.0.3 
+  │ │ │ └── lodash._bindcallback@3.0.1 
+  │ │ ├─┬ lodash.merge@3.3.2 
+  │ │ │ ├── lodash._arraycopy@3.0.0 
+  │ │ │ ├── lodash._arrayeach@3.0.0 
+  │ │ │ ├─┬ lodash._createassigner@3.1.1 
+  │ │ │ │ └── lodash._isiterateecall@3.0.9 
+  │ │ │ ├── lodash._getnative@3.9.1 
+  │ │ │ ├── lodash.isarguments@3.1.0 
+  │ │ │ ├── lodash.isarray@3.0.4 
+  │ │ │ ├── lodash.isplainobject@3.2.0 
+  │ │ │ ├── lodash.istypedarray@3.0.6 
+  │ │ │ ├── lodash.keys@3.1.2 
+  │ │ │ ├── lodash.keysin@3.0.8 
+  │ │ │ └─┬ lodash.toplainobject@3.0.0 
+  │ │ │   └── lodash._basecopy@3.0.1 
+  │ │ ├─┬ lodash.omit@3.1.0 
+  │ │ │ ├── lodash._arraymap@3.0.0 
+  │ │ │ ├─┬ lodash._basedifference@3.0.3 
+  │ │ │ │ ├── lodash._baseindexof@3.1.0 
+  │ │ │ │ ├── lodash._cacheindexof@3.0.2 
+  │ │ │ │ └── lodash._createcache@3.1.2 
+  │ │ │ ├── lodash._baseflatten@3.1.4 
+  │ │ │ ├── lodash._pickbyarray@3.0.2 
+  │ │ │ ├── lodash._pickbycallback@3.0.0 
+  │ │ │ └── lodash.restparam@3.6.1 
+  │ │ ├─┬ minimatch@3.0.4 
+  │ │ │ └─┬ brace-expansion@1.1.11 
+  │ │ │   ├── balanced-match@1.0.0 
+  │ │ │   └── concat-map@0.0.1 
+  │ │ ├── object-assign@4.1.1 
+  │ │ ├─┬ optionator@0.6.0 
+  │ │ │ ├── deep-is@0.1.3 
+  │ │ │ ├── fast-levenshtein@1.0.7 
+  │ │ │ ├── levn@0.2.5 
+  │ │ │ ├── prelude-ls@1.1.2 
+  │ │ │ ├── type-check@0.3.2 
+  │ │ │ └── wordwrap@0.0.3 
+  │ │ ├── path-is-absolute@1.0.1 
+  │ │ ├── path-is-inside@1.0.2 
+  │ │ ├── shelljs@0.5.3 
+  │ │ ├── strip-json-comments@1.0.4 
+  │ │ ├── text-table@0.2.0 
+  │ │ ├── to-double-quotes@2.0.0 
+  │ │ ├── to-single-quotes@2.0.1 
+  │ │ ├─┬ user-home@2.0.0 
+  │ │ │ └── os-homedir@1.0.2 
+  │ │ └── xml-escape@1.0.0 
+  │ ├── find-root@0.1.2 
+  │ ├── get-stdin@4.0.1 
+  │ ├─┬ multiline@1.0.2 
+  │ │ └── strip-indent@1.0.1 
+  │ ├─┬ pkg-config@1.1.1 
+  │ │ ├── debug-log@1.0.1 
+  │ │ ├── find-root@1.1.0 
+  │ │ └── xtend@4.0.1 
+  │ └── xtend@4.0.1 
+  └─┬ standard-format@1.6.10 
+    ├─┬ esformatter@0.8.2 
+    │ ├── debug@0.7.4 
+    │ ├─┬ disparity@2.0.0 
+    │ │ └── diff@1.4.0 
+    │ ├── glob@5.0.15 
+    │ ├── mout@1.1.0 
+    │ ├─┬ npm-run@2.0.0 
+    │ │ ├─┬ npm-path@1.1.0 
+    │ │ │ └─┬ which@1.3.1 
+    │ │ │   └── isexe@2.0.0 
+    │ │ ├── npm-which@2.0.0 
+    │ │ ├─┬ serializerr@1.0.3 
+    │ │ │ └── protochain@1.0.5 
+    │ │ ├─┬ spawn-sync@1.0.15 
+    │ │ │ └── os-shim@0.1.3 
+    │ │ └── sync-exec@0.5.0 
+    │ ├─┬ resolve@1.11.0 
+    │ │ └── path-parse@1.0.6 
+    │ ├─┬ rocambole@0.7.0 
+    │ │ └── esprima@2.7.3 
+    │ ├─┬ rocambole-indent@2.0.4 
+    │ │ ├─┬ debug@2.6.9 
+    │ │ │ └── ms@2.0.0 
+    │ │ └── mout@0.11.1 
+    │ ├─┬ rocambole-linebreak@1.0.2 
+    │ │ ├─┬ debug@2.6.9 
+    │ │ │ └── ms@2.0.0 
+    │ │ └── semver@4.3.6 
+    │ ├── rocambole-node@1.0.0 
+    │ ├── rocambole-token@1.2.1 
+    │ ├─┬ rocambole-whitespace@1.0.0 
+    │ │ ├─┬ debug@2.6.9 
+    │ │ │ └── ms@2.0.0 
+    │ │ └── repeat-string@1.6.1 
+    │ ├── strip-json-comments@0.1.3 
+    │ └── supports-color@1.3.1 
+    ├─┬ esformatter-eol-last@1.0.0 
+    │ └── string.prototype.endswith@0.2.0 
+    ├─┬ esformatter-jsx@2.3.11 
+    │ ├─┬ babel-core@5.8.38 
+    │ │ ├── babel-plugin-constant-folding@1.0.1 
+    │ │ ├── babel-plugin-dead-code-elimination@1.0.2 
+    │ │ ├── babel-plugin-eval@1.0.1 
+    │ │ ├── babel-plugin-inline-environment-variables@1.0.1 
+    │ │ ├── babel-plugin-jscript@1.0.4 
+    │ │ ├── babel-plugin-member-expression-literals@1.0.1 
+    │ │ ├── babel-plugin-property-literals@1.0.1 
+    │ │ ├── babel-plugin-proto-to-assign@1.0.4 
+    │ │ ├── babel-plugin-react-constant-elements@1.0.3 
+    │ │ ├── babel-plugin-react-display-name@1.0.3 
+    │ │ ├── babel-plugin-remove-console@1.0.1 
+    │ │ ├── babel-plugin-remove-debugger@1.0.1 
+    │ │ ├── babel-plugin-runtime@1.0.7 
+    │ │ ├─┬ babel-plugin-undeclared-variables-check@1.0.2 
+    │ │ │ └── leven@1.0.2 
+    │ │ ├── babel-plugin-undefined-to-void@1.1.6 
+    │ │ ├── babylon@5.8.38 
+    │ │ ├── bluebird@2.11.0 
+    │ │ ├── convert-source-map@1.6.0 
+    │ │ ├── core-js@1.2.7 
+    │ │ ├─┬ debug@2.6.9 
+    │ │ │ └── ms@2.0.0 
+    │ │ ├─┬ detect-indent@3.0.1 
+    │ │ │ └── repeating@1.1.3 
+    │ │ ├── fs-readdir-recursive@0.1.2 
+    │ │ ├── globals@6.4.1 
+    │ │ ├─┬ home-or-tmp@1.0.0 
+    │ │ │ ├── os-tmpdir@1.0.2 
+    │ │ │ └── user-home@1.1.1 
+    │ │ ├── is-integer@1.0.7 
+    │ │ ├── js-tokens@1.0.1 
+    │ │ ├── json5@0.4.0 
+    │ │ ├── minimatch@2.0.10 
+    │ │ ├── output-file-sync@1.1.2 
+    │ │ ├── path-exists@1.0.0 
+    │ │ ├── private@0.1.8 
+    │ │ ├─┬ regenerator@0.8.40 
+    │ │ │ ├─┬ commoner@0.10.8 
+    │ │ │ │ ├─┬ detective@4.7.1 
+    │ │ │ │ │ ├── acorn@5.7.3 
+    │ │ │ │ │ └── defined@1.0.0 
+    │ │ │ │ ├── glob@5.0.15 
+    │ │ │ │ ├── iconv-lite@0.4.24 
+    │ │ │ │ ├── q@1.5.1 
+    │ │ │ │ └─┬ recast@0.11.23 
+    │ │ │ │   ├── ast-types@0.9.6 
+    │ │ │ │   ├── esprima@3.1.3 
+    │ │ │ │   └── source-map@0.5.7 
+    │ │ │ ├─┬ defs@1.1.1 
+    │ │ │ │ ├─┬ alter@0.2.0 
+    │ │ │ │ │ └── stable@0.1.8 
+    │ │ │ │ ├── ast-traverse@0.1.1 
+    │ │ │ │ ├── breakable@1.0.0 
+    │ │ │ │ ├── esprima-fb@15001.1001.0-dev-harmony-fb 
+    │ │ │ │ ├── simple-fmt@0.1.0 
+    │ │ │ │ ├── simple-is@0.2.0 
+    │ │ │ │ ├── stringmap@0.2.2 
+    │ │ │ │ ├── stringset@0.2.1 
+    │ │ │ │ ├── tryor@0.1.2 
+    │ │ │ │ └─┬ yargs@3.27.0 
+    │ │ │ │   ├── camelcase@1.2.1 
+    │ │ │ │   ├─┬ cliui@2.1.0 
+    │ │ │ │   │ ├─┬ center-align@0.1.3 
+    │ │ │ │   │ │ ├─┬ align-text@0.1.4 
+    │ │ │ │   │ │ │ ├─┬ kind-of@3.2.2 
+    │ │ │ │   │ │ │ │ └── is-buffer@1.1.6 
+    │ │ │ │   │ │ │ └── longest@1.0.1 
+    │ │ │ │   │ │ └── lazy-cache@1.0.4 
+    │ │ │ │   │ ├── right-align@0.1.3 
+    │ │ │ │   │ └── wordwrap@0.0.2 
+    │ │ │ │   ├─┬ os-locale@1.4.0 
+    │ │ │ │   │ └─┬ lcid@1.0.0 
+    │ │ │ │   │   └── invert-kv@1.0.0 
+    │ │ │ │   ├── window-size@0.1.4 
+    │ │ │ │   └── y18n@3.2.1 
+    │ │ │ ├── esprima-fb@15001.1001.0-dev-harmony-fb 
+    │ │ │ └─┬ recast@0.10.33 
+    │ │ │   ├── ast-types@0.8.12 
+    │ │ │   ├── esprima-fb@15001.1001.0-dev-harmony-fb 
+    │ │ │   └── source-map@0.5.7 
+    │ │ ├─┬ regexpu@1.3.0 
+    │ │ │ ├── esprima@2.7.3 
+    │ │ │ ├── regenerate@1.4.0 
+    │ │ │ ├── regjsgen@0.2.0 
+    │ │ │ └─┬ regjsparser@0.1.5 
+    │ │ │   └── jsesc@0.5.0 
+    │ │ ├─┬ repeating@1.1.3 
+    │ │ │ └── is-finite@1.0.2 
+    │ │ ├── shebang-regex@1.0.0 
+    │ │ ├── slash@1.0.0 
+    │ │ ├── source-map@0.5.7 
+    │ │ ├─┬ source-map-support@0.2.10 
+    │ │ │ └─┬ source-map@0.1.32 
+    │ │ │   └── amdefine@1.0.1 
+    │ │ ├── to-fast-properties@1.0.3 
+    │ │ ├── trim-right@1.0.1 
+    │ │ └── try-resolve@1.0.1 
+    │ ├── esformatter-ignore@0.1.3 
+    │ ├── extend@2.0.2 
+    │ ├─┬ fresh-falafel@1.2.0 
+    │ │ ├── acorn@1.2.2 
+    │ │ ├── foreach@2.0.5 
+    │ │ └── object-keys@1.1.1 
+    │ └─┬ js-beautify@1.10.0 
+    │   ├─┬ config-chain@1.1.12 
+    │   │ └── proto-list@1.2.4 
+    │   ├─┬ editorconfig@0.15.3 
+    │   │ ├─┬ lru-cache@4.1.5 
+    │   │ │ ├── pseudomap@1.0.2 
+    │   │ │ └── yallist@2.1.2 
+    │   │ └── sigmund@1.0.1 
+    │   └─┬ nopt@4.0.1 
+    │     ├── abbrev@1.1.1 
+    │     └── osenv@0.1.5 
+    ├─┬ esformatter-literal-notation@1.0.1 
+    │ └─┬ rocambole@0.3.6 
+    │   └── esprima@1.0.4 
+    ├── esformatter-quotes@1.1.0 
+    ├─┬ esformatter-semicolon-first@1.2.0 
+    │ └─┬ esformatter-parser@1.0.0 
+    │   ├── acorn-to-esprima@2.0.8 
+    │   ├─┬ babel-traverse@6.26.0 
+    │   │ ├─┬ babel-code-frame@6.26.0 
+    │   │ │ └── js-tokens@3.0.2 
+    │   │ ├── babel-messages@6.23.0 
+    │   │ ├─┬ babel-runtime@6.26.0 
+    │   │ │ ├── core-js@2.6.9 
+    │   │ │ └── regenerator-runtime@0.11.1 
+    │   │ ├─┬ babel-types@6.26.0 
+    │   │ │ └── lodash@4.17.11 
+    │   │ ├── babylon@6.18.0 
+    │   │ ├─┬ debug@2.6.9 
+    │   │ │ └── ms@2.0.0 
+    │   │ ├── globals@9.18.0 
+    │   │ ├─┬ invariant@2.2.4 
+    │   │ │ └─┬ loose-envify@1.4.0 
+    │   │ │   └── js-tokens@4.0.0 
+    │   │ └── lodash@4.17.11 
+    │   └── babylon@6.18.0 
+    ├── esformatter-spaced-lined-comment@2.0.1 
+    └── stdin@0.0.1 
+
+Removing intermediate container 1f79d489e069
+ ---> 174fb6a4662d
+Step 15/19 : COPY entrypoint.sh /usr/bin/entrypoint.sh
+ ---> 8fe827eca558
+Step 16/19 : RUN chown root /opt/protonmail/node_modules/electron/dist/chrome-sandbox && chmod 4755 /opt/protonmail/node_modules/electron/dist/chrome-sandbox
+ ---> Running in 404709261ac2
+Removing intermediate container 404709261ac2
+ ---> 17ce47fe392b
+Step 17/19 : USER protonmail
+ ---> Running in cae4c74950e4
+Removing intermediate container cae4c74950e4
+ ---> 661db890bf6f
+Step 18/19 : WORKDIR $HOME
+ ---> Running in db0cabf7e7c7
+Removing intermediate container db0cabf7e7c7
+ ---> b28f0cdf74df
+Step 19/19 : ENTRYPOINT [ "entrypoint.sh" ]
+ ---> Running in 6dc80a0e2bbe
+Removing intermediate container 6dc80a0e2bbe
+ ---> e0fb62e9224e
+Successfully built e0fb62e9224e
+Successfully tagged protonmail:latest
 Done
-420e653752127eb5022c81b7bad503dd209a779828903cdd3aaa90b42efc9330
-thunderbird-proton
-'thunderbird-proton.desktop' -> '/home/ibrahimel/.local/share/applications/thunderbird-proton.desktop'
+'protonmail.desktop' -> '/home/ibrahimel/.local/share/applications/protonmail.desktop'

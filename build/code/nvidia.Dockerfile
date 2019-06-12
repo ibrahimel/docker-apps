@@ -48,7 +48,7 @@ RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable ma
 RUN apt update && apt -y install \
 	openssh-client \
 	ssh-askpass-gnome \
-	code \
+	code-insiders \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 

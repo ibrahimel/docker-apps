@@ -11,7 +11,7 @@ export NO_AT_BRIDGE=1
 # Start and configure ssh-agent
 ssh-agent -D > .ssh_agent 2>&1 &
 sleep 0.1 && cat .ssh_agent | head -n 1 > .ssh_cmd
-export SSH_AUTH_SOCK=$(sed 's@SSH_AUTH_SOCK=@@' .ssh_cmd | sed 's@;.*@@')
+export SSH_AUTH_SOCK=$(sed 's@SSH_AUTH_SOCK=@@' .ssh_cmd | sed 's@;.*@@') && ssh-add
 
 # Start gpg daemon
 gpg-agent --homedir="$HOME/.gnupg" --daemon &

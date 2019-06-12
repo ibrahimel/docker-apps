@@ -1,2 +1,3 @@
-fix*.sh
-./build/*.log
+/fix*.sh
+/build/*.log
+*.ovpn

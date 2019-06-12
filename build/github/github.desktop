@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Github
+GenericName=Github
+Comment=Secure Email
+Categories=Internet;
+Exec=/home/ibrahimel/.docker-apps/bin/docker-apps github '--shm-size=2g'
+Icon=/home/ibrahimel/.docker-apps/build/github/github.png
+StartupWMClass=Github

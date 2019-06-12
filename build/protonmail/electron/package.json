@@ -1,0 +1,15 @@
+{
+  "name": "ProtonMail",
+  "version": "1.0.0",
+  "description": "ProtoMail in Electron",
+  "main": "main.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node_modules/electron/dist/electron ../../../"
+  },
+  "repository": "https://github.com/ibrahimel/docker-apps",
+  "author": "ibrahimel",
+  "devDependencies": {
+    "electron": "https://github.com/castlabs/electron-releases"
+  }
+}
