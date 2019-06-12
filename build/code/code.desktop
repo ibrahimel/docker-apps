@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=Visual Studio Code
+Comment=Code Editing. Redefined.
+GenericName=Text Editor
+Exec=/home/ibrahimel/.docker-apps/bin/docker-apps code '-v /home/ibrahimel/workspace:/home/code/workspace -v /home/ibrahimel/.ssh:/home/code/.ssh:ro -v /home/ibrahimel/.gnupg:/home/code/.gnupg:ro -v /home/ibrahimel/.gitconfig:/home/code/.gitconfig:ro'
+Icon=/home/ibrahimel/.docker-apps/build/code/code.png
+Type=Application
+StartupNotify=false
+StartupWMClass=Code
+Categories=Utility;TextEditor;Development;IDE;
+MimeType=text/plain;inode/directory;
+Actions=new-empty-window;
+Keywords=vscode;
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=/home/ibrahimel/.docker-apps/bin/docker-apps code '-v /home/ibrahimel/workspace:/home/code/workspace -v /home/ibrahimel/.ssh:/home/code/.ssh:ro -v /home/ibrahimel/.gnupg:/home/code/.gnupg:ro -v /home/ibrahimel/.gitconfig:/home/code/.gitconfig:ro'
+Icon=/home/ibrahimel/.docker-apps/build/code/code.png
