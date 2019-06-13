@@ -1,7 +1,7 @@
 {
-  "name": "IpFire",
+  "name": "office",
   "version": "1.0.0",
-  "description": "IpFire in Electron",
+  "description": "Microsoft Office Online",
   "main": "main.js",
   "license": "MIT",
   "scripts": {

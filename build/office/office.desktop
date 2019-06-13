@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Microsoft Office Online
+GenericName=Microsoft Office Online
+Comment=Office Tools Online
+Categories=Office;
+Exec=/home/ibrahimel/.docker-apps/bin/docker-apps office '--shm-size=2g'
+Icon=/home/ibrahimel/.docker-apps/build/office/office.png
+StartupWMClass=Microsoft Office Online

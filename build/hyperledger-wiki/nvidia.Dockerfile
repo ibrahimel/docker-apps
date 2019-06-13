@@ -1,4 +1,4 @@
-# Android Studio in a container
+# hyperledger-wiki web interface using Electron in a container
 
 FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu18.04
 LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
@@ -41,34 +41,32 @@ ENV LANG="en_US.UTF-8"
 ENV LC_ALL="en_US.UTF-8"
 ENV LANGUAGE="en_US.UTF-8"
 
-RUN wget -O /tmp/android.tar.gz "https://dl.google.com/dl/android/studio/ide-zips/3.4.1.0/android-studio-ide-183.5522156-linux.tar.gz"
-
-RUN tar xvfz /tmp/android.tar.gz -C /opt/ && rm /tmp/android.tar.gz
-
 RUN apt update && apt install -y \
-	openssh-client \
-	ssh-askpass-gnome \
+	npm \
+	nodejs\
+	libxss1 \
+	libnss3 \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN apt update && apt install -y \
-	openjdk-8* \
-	openjdk-11* \
-	--no-install-recommends \
-	&& rm -rf /var/lib/apt/lists/*
+COPY hyperledger-wiki.png /usr/share/icons/
 
-ENV HOME /home/android-studio
-RUN useradd --create-home --home-dir $HOME android-studio \
-	&& gpasswd -a android-studio audio \
-	&& chown -R android-studio:android-studio $HOME
+COPY ./electron /opt/hyperledger-wiki
 
+ENV HOME /home/hyperledger-wiki
+RUN useradd --create-home --home-dir $HOME hyperledger-wiki \
+	&& usermod -a -G audio,video hyperledger-wiki \
+	&& chown -R hyperledger-wiki:hyperledger-wiki /opt/hyperledger-wiki \
+	&& chown -R hyperledger-wiki:hyperledger-wiki $HOME
+
+RUN su hyperledger-wiki -c "cd /opt/hyperledger-wiki && npm install && cd node_modules/electron && npm install"
+
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+
+RUN chown root /opt/hyperledger-wiki/node_modules/electron/dist/chrome-sandbox && chmod 4755 /opt/hyperledger-wiki/node_modules/electron/dist/chrome-sandbox
+
+USER hyperledger-wiki
 WORKDIR $HOME
-USER android-studio
 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-
-WORKDIR $HOME
-USER android-studio
-
-# Autorun Android studio
 ENTRYPOINT [ "entrypoint.sh" ]
+

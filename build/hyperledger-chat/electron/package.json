@@ -1,7 +1,7 @@
 {
-  "name": "IpFire",
+  "name": "hyperledger-chat",
   "version": "1.0.0",
-  "description": "IpFire in Electron",
+  "description": "Rocket Chat in Electron",
   "main": "main.js",
   "license": "MIT",
   "scripts": {

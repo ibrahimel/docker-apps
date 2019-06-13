@@ -1,6 +1,6 @@
-# Android Studio in a container
+# google-maps web interface using Electron in a container
 
-FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu18.04
+FROM ubuntu:18.04
 LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
 
 # Tell debconf to run in non-interactive mode
@@ -41,34 +41,31 @@ ENV LANG="en_US.UTF-8"
 ENV LC_ALL="en_US.UTF-8"
 ENV LANGUAGE="en_US.UTF-8"
 
-RUN wget -O /tmp/android.tar.gz "https://dl.google.com/dl/android/studio/ide-zips/3.4.1.0/android-studio-ide-183.5522156-linux.tar.gz"
-
-RUN tar xvfz /tmp/android.tar.gz -C /opt/ && rm /tmp/android.tar.gz
-
 RUN apt update && apt install -y \
-	openssh-client \
-	ssh-askpass-gnome \
+	npm \
+	nodejs\
+	libxss1 \
+	libnss3 \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN apt update && apt install -y \
-	openjdk-8* \
-	openjdk-11* \
-	--no-install-recommends \
-	&& rm -rf /var/lib/apt/lists/*
+COPY google-maps.png /usr/share/icons/
 
-ENV HOME /home/android-studio
-RUN useradd --create-home --home-dir $HOME android-studio \
-	&& gpasswd -a android-studio audio \
-	&& chown -R android-studio:android-studio $HOME
+COPY ./electron /opt/google-maps
 
+ENV HOME /home/google-maps
+RUN useradd --create-home --home-dir $HOME google-maps \
+	&& usermod -a -G audio,video google-maps \
+	&& chown -R google-maps:google-maps /opt/google-maps \
+	&& chown -R google-maps:google-maps $HOME
+
+RUN su google-maps -c "cd /opt/google-maps && npm install && cd node_modules/electron && npm install"
+
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+
+RUN chown root /opt/google-maps/node_modules/electron/dist/chrome-sandbox && chmod 4755 /opt/google-maps/node_modules/electron/dist/chrome-sandbox
+
+USER google-maps
 WORKDIR $HOME
-USER android-studio
 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-
-WORKDIR $HOME
-USER android-studio
-
-# Autorun Android studio
 ENTRYPOINT [ "entrypoint.sh" ]

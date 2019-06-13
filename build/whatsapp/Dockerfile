@@ -1,4 +1,4 @@
-# whatsapp in a container
+# whatsapp web interface using Electron in a container
 
 FROM ubuntu:18.04
 LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
@@ -41,17 +41,35 @@ ENV LANG="en_US.UTF-8"
 ENV LC_ALL="en_US.UTF-8"
 ENV LANGUAGE="en_US.UTF-8"
 
-RUN wget -O /tmp/whatsapp.deb "https://zerkc.gitlab.io/whatsdesk/whatsdesk_0.2.18_amd64.deb"
+RUN apt update && apt install -y \
+	npm \
+	nodejs\
+	libxss1 \
+	libnss3 \
+	--no-install-recommends \
+	&& rm -rf /var/lib/apt/lists/*
 
-RUN apt update && apt install -y /tmp/whatsapp.deb && rm /tmp/whatsapp.deb
+COPY whatsapp.png /usr/share/icons/
+
+RUN npm install -g nativefier
+
+#COPY ./electron /opt/whatsapp
 
 ENV HOME /home/whatsapp
 RUN useradd --create-home --home-dir $HOME whatsapp \
-	&& gpasswd -a whatsapp audio \
+	&& usermod -a -G audio,video whatsapp \
 	&& chown -R whatsapp:whatsapp $HOME
 
-WORKDIR $HOME
-USER whatsapp
+#RUN su whatsapp -c "cd /opt/whatsapp && npm install && cd node_modules/electron && npm install"
 
-# Autorun whatsapp
-ENTRYPOINT [ "/opt/whatsdesk/whatsdesk" ]
+RUN sh -c 'cd /opt && nativefier -i /usr/share/icons/whatsapp.png --name="whatsapp" "https://web.whatsapp.com"'
+
+
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+
+#RUN chown root /opt/whatsapp/node_modules/electron/dist/chrome-sandbox && chmod 4755 /opt/whatsapp/node_modules/electron/dist/chrome-sandbox
+
+USER whatsapp
+WORKDIR $HOME
+
+ENTRYPOINT [ "entrypoint.sh" ]

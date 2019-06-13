@@ -36,7 +36,7 @@ app.on('certificate-error', (event, webContents, url, error, certificate, callba
   // and we then say "it is all fine - true" to the callback
   event.preventDefault();
   callback(true);
-});
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -51,21 +51,10 @@ app.on('activate', function () {
   }
 })
 
-app.on('widevine-ready', (version) => {
-  console.log('Widevine ' + version + ' is ready to be used!');
-  createWindow()
-});
-
-app.on('widevine-update-pending', (currentVersion, pendingVersion) => {
-  console.log('Widevine ' + currentVersion + ' is ready to be upgraded to ' + pendingVersion + '!');
-});
-
-app.on('widevine-error', (error) => {
-  console.log('Widevine installation encounterted an error: ' + error);
-  //process.exit(1)
-});
-
 app.on('login', function(event, webContents, request, authInfo, callback) {
   event.preventDefault();
   callback('admin', '');
-});
+})
+
+app.on('ready', createWindow)
+

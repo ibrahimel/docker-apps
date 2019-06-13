@@ -52,8 +52,8 @@ RUN apt update && apt install -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN apt update && apt install -y \
-	openjdk-8-jre \
-	openjdk-11-jre \
+	openjdk-8* \
+	openjdk-11* \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 

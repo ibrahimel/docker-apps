@@ -8,8 +8,8 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
-    title: 'tensorflow',
-    icon: '/usr/share/icons/tensorflow.png',
+    title: 'google-maps',
+    icon: '/usr/share/icons/google-maps.png',
     autoHideMenuBar: true,
     sandbox: false,
     webPreferences: {
@@ -19,7 +19,7 @@ function createWindow () {
   })
 
 
-mainWindow.loadURL('http://127.0.0.1:8888')
+mainWindow.loadURL('https://maps.google.com')
 
 // Open the DevTools.
 // mainWindow.webContents.openDevTools()

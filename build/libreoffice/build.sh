@@ -26,7 +26,7 @@ docker cp libreoffice:/usr/share/icons/hicolor/128x128/apps/libreoffice-main.png
 docker rm --force libreoffice &&
 
 # Fix desktop file
-sed -i "s@Exec.*@Exec=$HOME/.docker-apps/bin/$APP libreoffice $RUNTIME@" libreoffice.desktop &&
+sed -i "s@Exec.*@Exec=$HOME/.docker-apps/bin/$APP libreoffice '-e LD_LIBRARY_PATH="$LD_LIBRARY_PATH=:/usr/lib/libreoffice/program:/usr/lib/x86_64-linux-gnu/" $RUNTIME'@" libreoffice.desktop &&
 sed -i 's@TryExec.*@@' libreoffice.desktop &&
 sed -i "s@Icon.*@Icon=$HOME/.docker-apps/build/libreoffice/libreoffice.png@" libreoffice.desktop &&
 chown -R $USER:$USER ./ &&

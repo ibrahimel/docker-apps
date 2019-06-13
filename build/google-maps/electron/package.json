@@ -1,7 +1,7 @@
 {
-  "name": "IpFire",
+  "name": "google-maps",
   "version": "1.0.0",
-  "description": "IpFire in Electron",
+  "description": "Google Maps in Electron",
   "main": "main.js",
   "license": "MIT",
   "scripts": {
