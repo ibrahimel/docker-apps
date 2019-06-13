@@ -1,7 +1,7 @@
 {
-  "name": "Github",
+  "name": "IpFire",
   "version": "1.0.0",
-  "description": "Github in Electron",
+  "description": "IpFire in Electron",
   "main": "main.js",
   "license": "MIT",
   "scripts": {

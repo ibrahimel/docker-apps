@@ -1,4 +1,4 @@
-# github in a container
+# ipfire in a container
 
 FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu18.04
 LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
@@ -49,22 +49,24 @@ RUN apt update && apt install -y \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g nativefier
+COPY ipfire.png /usr/share/icons/
 
-COPY github.png /usr/share/icons/
+COPY ./electron /opt/ipfire
 
-ENV HOME /home/github
-RUN useradd --create-home --home-dir $HOME github \
-	&& usermod -a -G audio,video github \
-	&& chown -R github:github $HOME
+ENV HOME /home/ipfire
+RUN useradd --create-home --home-dir $HOME ipfire \
+	&& usermod -a -G audio,video ipfire \
+	&& chown -R ipfire:ipfire /opt/ipfire \
+	&& chown -R ipfire:ipfire $HOME
 
-RUN sh -c 'cd /opt && nativefier -i /usr/share/icons/github.png --name="github" "https://www.github.com"'
+RUN su ipfire -c "cd /opt/ipfire && npm install && cd node_modules/electron && npm install"
 
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 
-USER github
+RUN chown root /opt/ipfire/node_modules/electron/dist/chrome-sandbox && chmod 4755 /opt/ipfire/node_modules/electron/dist/chrome-sandbox
+
+USER ipfire
 WORKDIR $HOME
 
 ENTRYPOINT [ "entrypoint.sh" ]
-
 

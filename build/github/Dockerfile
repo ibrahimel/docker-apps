@@ -49,21 +49,18 @@ RUN apt update && apt install -y \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
-COPY github.png /usr/share/icons/
+RUN npm install -g nativefier
 
-COPY ./electron /opt/github
+COPY github.png /usr/share/icons/
 
 ENV HOME /home/github
 RUN useradd --create-home --home-dir $HOME github \
 	&& usermod -a -G audio,video github \
-	&& chown -R github:github /opt/github \
 	&& chown -R github:github $HOME
 
-RUN su github -c "cd /opt/github && npm install && cd node_modules/electron && npm install"
+RUN sh -c 'cd /opt && nativefier -i /usr/share/icons/github.png --name="github" "https://www.github.com"'
 
 COPY entrypoint.sh /usr/bin/entrypoint.sh
-
-RUN chown root /opt/github/node_modules/electron/dist/chrome-sandbox && chmod 4755 /opt/github/node_modules/electron/dist/chrome-sandbox
 
 USER github
 WORKDIR $HOME
