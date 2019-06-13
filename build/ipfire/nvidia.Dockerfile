@@ -1,4 +1,4 @@
-# ipfire in a container
+# ipfire web interface using Electron in a container
 
 FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu18.04
 LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"

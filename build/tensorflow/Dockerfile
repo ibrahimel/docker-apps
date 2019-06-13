@@ -37,13 +37,17 @@ ENV HOME /home/tensorflow
 RUN useradd --create-home --home-dir $HOME tensorflow \
 	&& chown -R tensorflow:tensorflow $HOME
 
-COPY install.sh /tmp
+COPY install.sh /opt
 
 COPY tensorflow.png /usr/share/icons/
 
-RUN /tmp/install.sh
+COPY ./electron /opt/tensorflow
 
-RUN chown -R tensorflow:tensorflow /opt/jupyter-notebook-linux-x64
+RUN sh -c "cd /opt/tensorflow && npm install && cd node_modules/electron && npm install"
+
+#RUN /opt/install.sh
+
+#RUN chown -R tensorflow:tensorflow /opt/jupyter-notebook-linux-x64
 
 RUN apt update && apt install -y \
 	gxmessage \

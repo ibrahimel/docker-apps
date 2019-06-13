@@ -33,4 +33,5 @@ fi
 
 # Run App 
 echo 'Running App'
-/opt/jupyter-notebook-linux-x64/jupyter-notebook
+#/opt/jupyter-notebook-linux-x64/jupyter-notebook
+ /opt/tensorflow/node_modules/electron/dist/electron --no-sandbox /opt/tensorflow

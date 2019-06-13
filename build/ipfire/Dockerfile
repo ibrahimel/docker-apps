@@ -1,4 +1,4 @@
-# ipfire in a container
+# ipfire web interface using Electron in a container
 
 FROM ubuntu:18.04
 LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
