@@ -23,6 +23,8 @@ fi
 # Run container to establish Tor Connection
 docker run -d --name "$TOR_NAME" --cap-add NET_ADMIN --privileged --dns "127.0.0.1" tor-router
 
+sleep 3
+
 #Allow connections to X11
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f /tmp/.docker.xauth nmerge -
 

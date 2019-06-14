@@ -8,8 +8,10 @@ TOR_NAME="tor-$1-disp-$(date +'%s')" # Container name for Tor net container
 # Run container to establish Tor Connection
 docker run -d --name "$TOR_NAME" --cap-add NET_ADMIN --privileged --dns "127.0.0.1" tor-router
 
+sleep 3
+
 #Allow connections to X11
-xhost +
+xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f /tmp/.docker.xauth nmerge -
 
 # Run container (Additional argument can be assed for customisation = $2 --net=host... )
 docker run \

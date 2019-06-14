@@ -10,6 +10,8 @@ VPN_NAME="vpn-$1-disp-$(date +'%s')" # Container name for VPN net container
 # Run container to establish Proton VPN Connection
 docker run -d --name "$VPN_NAME" --cap-add NET_ADMIN --privileged --dns "10.8.8.1" --dns "1.1.1.1" vpn-router
 
+sleep 3
+
 #Allow connections to X11
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f /tmp/.docker.xauth nmerge -
 
