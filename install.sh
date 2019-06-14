@@ -12,6 +12,10 @@ if [ "$1" = "--vpn" ] || [ "$2" = "--vpn" ] || [ "$3" = "--vpn" ]; then
 		exit
 	fi
 	VPN=" --vpn"
+else
+	if [ "$1" = "--tor" ] || [ "$2" = "--tor" ] || [ "$3" = "--tor" ]; then
+		VPN=" --tor"
+	fi
 fi
 if [ "$1" = "--nvidia" ] || [ "$2" = "--nvidia" ] || [ "$3" = "--vpn" ]; then
 	if [ ! -x "/usr/bin/nvidia-docker" ]; then
@@ -23,13 +27,13 @@ fi
 if [ "$1" = "--all" ] || [ "$2" = "--all" ] || [ "$3" = "--all" ]; then
 	ALL=" --all"
 fi
-if [ "$1" = "--vpn" ] || [ "$1" = "--nvidia" ] || [ "$1" = "--all" ]; then
+if [ "$1" = "--vpn" ] || [ "$1" = "--nvidia" ] || [ "$1" = "--all" ] || [ "$1" = "--tor" ]; then
 	shift
 fi
-if [ "$1" = "--vpn" ] || [ "$1" = "--nvidia" ] || [ "$1" = "--all" ]; then
+if [ "$1" = "--vpn" ] || [ "$1" = "--nvidia" ] || [ "$1" = "--all" ] || [ "$1" = "--tor" ]; then
 	shift
 fi
-if [ "$1" = "--vpn" ] || [ "$1" = "--nvidia" ] || [ "$1" = "--all" ]; then
+if [ "$1" = "--vpn" ] || [ "$1" = "--nvidia" ] || [ "$1" = "--all" ] || [ "$1" = "--tor" ]; then
 	shift
 fi
 

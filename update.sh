@@ -12,26 +12,29 @@ if [ "$1" = "--vpn" ] || [ "$2" = "--vpn" ] || [ "$3" = "--vpn" ]; then
 		echo 'Your VPN configuration does not seem set. Please edit build/vpn-router/entrypoint.sh'
 		exit
 	fi
-	VPN="--vpn"
+	VPN=" --vpn"
+else
+	if [ "$1" = "--tor" ] || [ "$2" = "--tor" ] || [ "$3" = "--tor" ]; then
+		VPN=" --tor"
+	fi
 fi
 if [ "$1" = "--nvidia" ] || [ "$2" = "--nvidia" ] || [ "$3" = "--vpn" ]; then
 	if [ ! -x "/usr/bin/nvidia-docker" ]; then
 		echo "Nvidia Docker runtime does not seem to be installed at /usr/bin !. Please install it using prereq script in ubuntu or refer to Nvidia docker in github"
 		exit
 	fi
-	NVARG="--nvidia"
-	NVIDIA="-f nvidia.Dockerfile "
+	NVIDIA=" --nvidia"
 fi
 if [ "$1" = "--all" ] || [ "$2" = "--all" ] || [ "$3" = "--all" ]; then
-	ALL="--all"
+	ALL=" --all"
 fi
-if [ "$1" = "--vpn" ] || [ "$1" = "--nvidia" ] || [ "$1" = "--all" ]; then
+if [ "$1" = "--vpn" ] || [ "$1" = "--nvidia" ] || [ "$1" = "--all" ] || [ "$1" = "--tor" ]; then
 	shift
 fi
-if [ "$1" = "--vpn" ] || [ "$1" = "--nvidia" ] || [ "$1" = "--all" ]; then
+if [ "$1" = "--vpn" ] || [ "$1" = "--nvidia" ] || [ "$1" = "--all" ] || [ "$1" = "--tor" ]; then
 	shift
 fi
-if [ "$1" = "--vpn" ] || [ "$1" = "--nvidia" ] || [ "$1" = "--all" ]; then
+if [ "$1" = "--vpn" ] || [ "$1" = "--nvidia" ] || [ "$1" = "--all" ] || [ "$1" = "--tor" ]; then
 	shift
 fi
 

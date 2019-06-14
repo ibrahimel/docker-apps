@@ -4,10 +4,6 @@
 APP="docker-apps"
 RUNTIME=""
 
-if [ "$1" = "--vpn" ] || [ "$2" = "--vpn" ]; then
-	APP="docker-apps-vpn"
-fi
-
 if [ "$1" = "--nvidia" ] || [ "$2" = "--nvidia" ]; then
 	RUNTIME="--runtime=nvidia "
     docker build --pull -t typora -f nvidia.Dockerfile . && echo 'Done'
@@ -26,7 +22,7 @@ docker cp typora:/usr/share/icons/hicolor/256x256/apps/typora.png ./ &&
 docker rm --force typora &&
 
 # Fix desktop file
-sed -i "s@Exec.*@Exec=$HOME/.docker-apps/bin/$APP typora $RUNTIME@" typora.desktop &&
+sed -i "s@Exec.*@Exec=$HOME/.docker-apps/bin/$APP typora '$RUNTIME--net=none -v $HOME/workspace:/home/typora/workspace'@" typora.desktop &&
 sed -i 's@TryExec.*@@' typora.desktop &&
 sed -i "s@Icon.*@Icon=$HOME/.docker-apps/build/typora/typora.png@" typora.desktop &&
 chown -R $USER:$USER ./ &&
