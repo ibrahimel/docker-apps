@@ -4,6 +4,10 @@
 APP="docker-apps"
 RUNTIME=""
 
+if [ "$1" = "--tor" ] || [ "$2" = "--tor" ]; then
+	APP="docker-apps-tor"
+fi
+
 if [ "$1" = "--vpn" ] || [ "$2" = "--vpn" ]; then
 	APP="docker-apps-vpn"
 fi

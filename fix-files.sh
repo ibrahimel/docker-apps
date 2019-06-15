@@ -8,12 +8,13 @@ cd build/
 # Fix files
 list=$(ls)
 
+# Fix icons and desktop shortcuts
 for package in $list; do
 	if [ -d $package ]; then
 		start_spinner "[Docker-apps] -- Fixing package: $package" && echo 'Starting'
 
-		sed -i 's@apt-get@apt@' ./$package/Dockerfile && echo 'Dockerfile APT Done'
-		sed -i 's@apt-get@apt@' ./$package/nvidia.Dockerfile && echo 'nvidia Dockerfile APT Done'
+		#sed -i 's@apt-get@apt@' ./$package/Dockerfile && echo 'Dockerfile APT Done'
+		#sed -i 's@apt-get@apt@' ./$package/nvidia.Dockerfile && echo 'nvidia Dockerfile APT Done'
 
 		PNG=$(cat ./$package/build.sh | grep 'docker cp' | grep '.png')
 		if [ -n "$PNG" ]; then
@@ -38,6 +39,11 @@ for package in $list; do
 		DESK=$(cat ./$package/build.sh | grep 'docker cp' | grep '.desktop')
 		if [ -n "$DESK" ]; then
 			rm -r ./$package/*.desktop && echo 'DESK Clean Done'
+		fi
+
+		VPN=$(cat ./$package/build.sh | grep 'docker-apps-vpn')
+		if [ -n "$VPN" ]; then
+			sed -i 's@RUNTIME=""@RUNTIME=""\n\nif [ "$1" = "--tor" ] || [ "$2" = "--tor" ]; then\n\tAPP="docker-apps-tor"\nfi@' ./$package/build.sh
 		fi
 
 		stop_spinner $? && echo 'Done'
