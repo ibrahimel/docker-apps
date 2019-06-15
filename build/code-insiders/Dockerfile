@@ -51,6 +51,8 @@ RUN apt update && apt -y install \
 	python-all \
 	python3-all \
 	golang \
+	nodejs \
+	npm \
 	rustc \
 	cargo \
 	code-insiders \
