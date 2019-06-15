@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 # Directs container network through VPN connection.
 # This is configured to use ProtonVPN. Edit credentials in build/vpn-router/entrypoint.sh

@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 USER=$1 # User in container (Same as app name)
 CONT_NAME="$1-disp-$(date +'%s')" # Unique name for container

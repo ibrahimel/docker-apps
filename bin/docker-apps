@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 USER=$1 # User in container (Same as app name)
 DOCKER_HOMES="$HOME/.docker-apps/homes" # Path in host for container home folder persistence
