@@ -50,10 +50,11 @@ RUN apt update && apt install -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN apt update && apt install -y \
-	python3 \
-	python \
+	python3-all \
+	python-all \
 	python-pip \
 	python3-pip \
+	jupyter \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 

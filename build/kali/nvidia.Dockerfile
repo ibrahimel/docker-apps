@@ -23,7 +23,7 @@ RUN echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" \
 
 RUN apt update \
 	&& apt install -y kali-linux-full \
-	--no-install-recommends \
+	--install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV HOME /home/kali
@@ -31,6 +31,9 @@ RUN useradd --create-home --home-dir $HOME kali \
 	&& gpasswd -a kali sudo \
 	&& echo 'kali ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
 	&& chown -R kali:kali $HOME
+
+RUN chown root:kali /usr/bin/dumpcap \
+	&& setcap 'CAP_NET_RAW+eip CAP_NET_ADMIN+eip' /usr/bin/dumpcap
 
 WORKDIR $HOME
 USER kali

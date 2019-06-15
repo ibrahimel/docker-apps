@@ -55,6 +55,8 @@ RUN apt update && apt -y install \
 	npm \
 	rustc \
 	cargo \
+	libxss1 \
+	libnss3 \
 	code-insiders \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
