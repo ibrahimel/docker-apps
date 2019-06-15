@@ -41,10 +41,10 @@ for package in $list; do
 			rm -r ./$package/*.desktop && echo 'DESK Clean Done'
 		fi
 
-		VPN=$(cat ./$package/build.sh | grep 'docker-apps-vpn')
-		if [ -n "$VPN" ]; then
-			sed -i 's@RUNTIME=""@RUNTIME=""\n\nif [ "$1" = "--tor" ] || [ "$2" = "--tor" ]; then\n\tAPP="docker-apps-tor"\nfi@' ./$package/build.sh
-		fi
+		#VPN=$(cat ./$package/build.sh | grep 'docker-apps-vpn')
+		#if [ -n "$VPN" ]; then
+		#	sed -i 's@RUNTIME=""@RUNTIME=""\n\nif [ "$1" = "--tor" ] || [ "$2" = "--tor" ]; then\n\tAPP="docker-apps-tor"\nfi@' ./$package/build.sh
+		#fi
 
 		stop_spinner $? && echo 'Done'
 	fi
