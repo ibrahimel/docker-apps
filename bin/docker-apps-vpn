@@ -25,7 +25,18 @@ fi
 # Run container to establish Proton VPN Connection
 docker run -d --name "$VPN_NAME" --cap-add NET_ADMIN --privileged --dns "10.8.8.1" --dns "1.1.1.1" vpn-router
 
-sleep 3
+# Check Connectivity
+ONLINE=""
+while [ ! -n "$ONLINE"  ]; do
+        docker exec $VPN_NAME ping -c 1 -W 1 10.8.8.1
+        if [ $? -eq 0 ]; then
+                ONLINE="OK"
+                echo 'Connected to VPN'
+        else
+                echo 'Waiting for connection ...'
+                sleep 0.1
+        fi
+done
 
 #Allow connections to X11
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f /tmp/.docker.xauth nmerge -

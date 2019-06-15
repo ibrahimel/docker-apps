@@ -5,7 +5,7 @@ LABEL maintainer "Ibrahim El Rhezzali <ibrahim.el@pm.me>"
 
 FROM alpine:latest
 
-RUN apk add --no-cache openvpn
+RUN apk add --no-cache openvpn curl
 
 COPY ovpn /ovpn
 COPY iptables.rules /
