@@ -69,6 +69,7 @@ IN_PATH=$(echo $PATH | grep "~/.docker-apps/bin:")
 
 if [ ! -n "$IN_PATH" ]; then
 	echo 'export PATH="~/.docker-apps/bin:$PATH"' >> ~/.bashrc
+	source ~/.bashrc
 fi
 
 # Get ignore
