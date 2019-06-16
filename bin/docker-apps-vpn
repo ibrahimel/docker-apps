@@ -28,13 +28,13 @@ docker run -d --name "$VPN_NAME" --cap-add NET_ADMIN --privileged --dns "10.8.8.
 # Check Connectivity
 ONLINE=""
 while [ ! -n "$ONLINE"  ]; do
-        docker exec $VPN_NAME ping -c 1 -W 1 10.8.8.1
+        docker logs $VPN_NAME | grep 'Initialization Sequence Completed' > /dev/null 2>&1
         if [ $? -eq 0 ]; then
                 ONLINE="OK"
                 echo 'Connected to VPN'
         else
-                echo 'Waiting for connection ...'
-                sleep 0.1
+                echo 'Waiting for connection to VPN ...'
+                sleep 0.5
         fi
 done
 

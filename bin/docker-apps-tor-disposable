@@ -8,7 +8,18 @@ TOR_NAME="tor-$1-disp-$(date +'%s')" # Container name for Tor net container
 # Run container to establish Tor Connection
 docker run -d --name "$TOR_NAME" --cap-add NET_ADMIN --privileged --dns "127.0.0.1" tor-router
 
-sleep 3
+# Check Connectivity
+ONLINE=""
+while [ ! -n "$ONLINE"  ]; do
+        docker logs $TOR_NAME | grep 'Bootstrapped 100%: Done' > /dev/null 2>&1
+        if [ $? -eq 0 ]; then
+                ONLINE="OK"
+                echo 'Connected to Tor'
+        else
+                echo 'Waiting for connection to Tor ...'
+                sleep 0.5
+        fi
+done
 
 #Allow connections to X11
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f /tmp/.docker.xauth nmerge -
