@@ -1,3 +1,4 @@
-/fix*.sh
-/*.log
-/*.ovpn
+fix*.sh
+b*.log
+*.ovpn
+binaryninja/
