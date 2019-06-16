@@ -20,5 +20,5 @@ export SSH_AUTH_SOCK=$(sed 's@SSH_AUTH_SOCK=@@' .ssh_cmd | sed 's@;.*@@') && ssh
 # Start gpg daemon
 gpg-agent --homedir="$HOME/.gnupg" --daemon &
 
-# Run Programs
+# Run Program
 sh -c "/usr/share/code-insiders/code-insiders"
