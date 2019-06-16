@@ -1,4 +1,4 @@
 fix*.sh
 b*.log
 *.ovpn
-binaryninja/
+build/binaryninja/
