@@ -16,29 +16,39 @@ for package in $list; do
 		#sed -i 's@apt-get@apt@' ./$package/Dockerfile && echo 'Dockerfile APT Done'
 		#sed -i 's@apt-get@apt@' ./$package/nvidia.Dockerfile && echo 'nvidia Dockerfile APT Done'
 
-		PNG=$(cat ./$package/build.sh | grep 'docker cp' | grep '.png')
+		PNG=$(cat ./$package/build.sh | grep 'docker cp' | grep "$package.png")
 		if [ -n "$PNG" ]; then
-			rm -r ./$package/*.png && echo 'PNG Clean Done'
+			if [ -f ./$package/$package.png ]; then
+				rm -r ./$package/*.png && echo 'PNG Clean Done'
+			fi
 		fi
 
-		ICO=$(cat ./$package/build.sh | grep 'docker cp' | grep '.ico')
+		ICO=$(cat ./$package/build.sh | grep 'docker cp' | grep "$package.ico")
 		if [ -n "$ICO" ]; then
-			rm -r ./$package/*.ico && echo 'ICO Clean Done'
+			if [ -f ./$package/$package.ico ]; then
+				rm -r ./$package/*.ico && echo 'ICO Clean Done'
+			fi
 		fi
 
-		SVG=$(cat ./$package/build.sh | grep 'docker cp' | grep '.svg')
+		SVG=$(cat ./$package/build.sh | grep 'docker cp' | grep "$package.svg")
 		if [ -n "$SVG" ]; then
-			rm -r ./$package/*.svg && echo 'SVG Clean Done'
+			if [ -f ./$package/$package.svg ]; then
+				rm -r ./$package/*.svg && echo 'SVG Clean Done'
+			fi
 		fi
 
-		XPM=$(cat ./$package/build.sh | grep 'docker cp' | grep '.xpm')
+		XPM=$(cat ./$package/build.sh | grep 'docker cp' | grep "$package.xpm")
 		if [ -n "$XPM" ]; then
-			rm -r ./$package/*.xpm && echo 'XPM Clean Done'
+			if [ -f ./$package/$package.xpm ]; then
+				rm -r ./$package/*.xpm && echo 'XPM Clean Done'
+			fi
 		fi
 
-		DESK=$(cat ./$package/build.sh | grep 'docker cp' | grep '.desktop')
+		DESK=$(cat ./$package/build.sh | grep 'docker cp' | grep "$package.desktop")
 		if [ -n "$DESK" ]; then
-			rm -r ./$package/*.desktop && echo 'DESK Clean Done'
+			if [ -f ./$package/$package.desktop ]; then
+				rm -r ./$package/*.desktop && echo 'DESK Clean Done'
+			fi
 		fi
 
 		#VPN=$(cat ./$package/build.sh | grep 'docker-apps-vpn')
