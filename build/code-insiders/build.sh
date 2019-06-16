@@ -29,7 +29,7 @@ docker cp code-insiders:/usr/share/code-insiders/resources/app/resources/linux/c
 docker rm --force code-insiders &&
 
 # Fix desktop file
-sed -i "s@Exec.*@Exec=$HOME/.docker-apps/bin/$APP code-insiders '$RUNTIME-v $HOME/workspace:/home/code-insiders/workspace -v $HOME/.ssh:/home/code-insiders/.ssh:ro -v $HOME/.gnupg:/home/code-insiders/.gnupg:ro -v $HOME/.gitconfig:/home/code-insiders/.gitconfig:ro'@" code-insiders.desktop &&
+sed -i "s@Exec.*@Exec=$HOME/.docker-apps/bin/$APP code-insiders '$RUNTIME-v $HOME/workspace:/home/code-insiders/workspace -v $HOME/.ssh:/home/code-insiders/.ssh:ro -v $HOME/.gnupg:/home/code-insiders/.gnupg:ro -v $HOME/.gitconfig:/home/code-insiders/.gitconfig:ro -v /dev/bus/usb:/dev/bus/usb'@" code-insiders.desktop &&
 sed -i 's@TryExec.*@@' code-insiders.desktop &&
 sed -i "s@Icon.*@Icon=$HOME/.docker-apps/build/code-insiders/code-insiders.png@" code-insiders.desktop &&
 chown -R $USER:$USER ./ &&

@@ -57,6 +57,10 @@ RUN apt update && apt -y install \
 	cargo \
 	libxss1 \
 	libnss3 \
+	libu2f-host0 \
+	libpam-yubico \
+	libyubikey0 \
+	python-yubico \ 
 	code-insiders \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*

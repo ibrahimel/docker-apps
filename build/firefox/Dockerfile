@@ -46,6 +46,10 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0AB215679C571D1C832
 	&& apt update && apt install -y \
 	ffmpeg \
 	firefox \
+	libu2f-host0 \
+	libpam-yubico \
+	libyubikey0 \
+	python-yubico \ 
 	fonts-noto \
 	fonts-noto-cjk \
 	fonts-noto-color-emoji \
