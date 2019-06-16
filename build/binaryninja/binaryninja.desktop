@@ -1,9 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Type=Application
-Icon=/home/r00t/.docker-apps/build/crossover/crossover.png
-Name=Binary Ninja
-Comment=Reverse Engineering tool
-Exec=/home/r00t/.docker-apps/bin/docker-apps-vpn crossover  '--runtime=nvidia --shm-size 2g'
-Terminal=false
-Categories=Development;
