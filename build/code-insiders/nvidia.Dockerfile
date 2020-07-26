@@ -41,18 +41,23 @@ ENV LANG="en_US.UTF-8"
 ENV LC_ALL="en_US.UTF-8"
 ENV LANGUAGE="en_US.UTF-8"
 
-# Add the vscode-insiders debian repo
-RUN curl -sSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | apt-key add -
-RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode-insiders.list
-
 RUN apt update && apt -y install \
+    build-essential \
+    pkg-config \
+    cmake \
+    libssl-dev \
+    libsqlite3-dev \
+    libzmq3-dev \
+    libncursesw5-dev \
 	openssh-client \
 	ssh-askpass-gnome \
 	python-all \
 	python3-all \
+	python-pip \
+	python3-pip \
+	python*-setuptools \
 	golang \
 	nodejs \
-	npm \
 	rustc \
 	cargo \
 	libxss1 \
@@ -61,9 +66,32 @@ RUN apt update && apt -y install \
 	libpam-yubico \
 	libyubikey0 \
 	python-yubico \ 
+	--no-install-recommends \
+	&& rm -rf /var/lib/apt/lists/*
+
+# Add the vscode-insiders debian repo
+RUN curl -sSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | apt-key add -
+RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode-insiders.list
+
+RUN apt update && apt -y install \
 	code-insiders \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
+
+RUN sh -c "cd /tmp && \
+  curl https://download.libsodium.org/libsodium/releases/old/libsodium-1.0.14.tar.gz | tar -xz && \
+   cd /tmp/libsodium-1.0.14 && \
+   ./configure --disable-shared && \
+   make && \
+   make install && \
+   rm -rf /tmp/libsodium-1.0.14"
+   
+RUN sh -c "cd /tmp && \
+    git clone https://github.com/hyperledger/indy-sdk.git && \
+	cd ./indy-sdk/libindy && \
+	cargo build && cp -v ./target/debug/libindy.* /usr/lib/"
+
+RUN python3 -m pip install python3-indy
 
 ENV HOME /home/code-insiders
 RUN useradd --create-home --home-dir $HOME code-insiders \

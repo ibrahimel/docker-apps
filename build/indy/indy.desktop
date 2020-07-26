@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Indy SDK
+GenericName=Indy SDK
+Comment=Self Sovereign Identity
+Categories=Developement;
+Exec=/home/spo0n/.docker-apps/bin/docker-apps indy '-it'
+Icon=/home/spo0n/.docker-apps/build/indy/indy.png
+Terminal=true
+StartupWMClass=Indy SDK
+Name[en_US.UTF-8]=Indy SDK
